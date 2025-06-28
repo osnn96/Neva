@@ -1,0 +1,12 @@
+# Sanal Ortam Klasörü
+venv/
+
+# Gizli API Anahtarını içeren dosya
+.env
+
+# Konuşma geçmişini tutan JSON dosyaları (Kişisel veri içerdiği için genellikle gönderilmez)
+*.json
+
+# Python'un oluşturduğu geçici dosyalar
+__pycache__/
+*.pyc
