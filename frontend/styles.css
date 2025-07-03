@@ -1,0 +1,867 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* Sayfa içeriğinin navigasyonun altından başlaması için body'e padding ekliyoruz */
+body {
+    padding-top: 60px; /* Navigasyon çubuğunun yüksekliğine göre ayarlayın */
+}
+
+#main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Başlangıçta arka plan rengi #f0f0f0 (content-section ile aynı) */
+    background-color: #f0f0f0; 
+    padding: 10px 20px;
+    box-shadow: none; /* Başlangıçta gölge yok */
+    border-radius: 0; /* Sivri köşeler */
+    position: fixed; /* Sabit konumlandırma */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Diğer elementlerin üzerinde olması için */
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Geçiş efektleri */
+}
+
+/* Navigasyon görünür olduğunda uygulanacak stil */
+#main-nav.scrolled {
+    background-color: rgb(255, 255, 255); /* Aşağı inince beyaz arka plan */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Aşağı inince gölge */
+}
+
+.nav-left {
+    display: flex;
+    gap: 15px; /* Sloganlar arası boşluk */
+}
+
+.nav-left a {
+    color: black; /* Siyah yazılar */
+    text-decoration: none;
+    font-weight: normal; /* Normal kalınlık */
+}
+
+.nav-center {
+    flex-grow: 1; /* Ortadaki NEVA yazısının ortaya gelmesi için */
+    text-align: center;
+}
+
+.nav-center h1 {
+    margin: 0;
+    color: black; /* NEVA yazısı da siyah */
+    font-size: 2em; /* İstediğiniz boyutu ayarlayabilirsiniz */
+    font-weight: bold; /* Kalın olmasını isterseniz */
+}
+
+.nav-right button {
+    background-color: #ff0052; /* Pembe buton rengi */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 0; /* Yuvarlak köşeleri kaldırıyoruz */
+    font-size: 1em;
+    margin-left: 10px;
+}
+
+.nav-right button.giris-yap {
+    background-color: #ff3366; /* Bir tık açık pembe */
+}
+
+
+
+
+
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f8faf8;
+  color: #212529;
+}
+
+/* HEADER */
+
+/* .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  background-color: rgb(35, 218, 96);
+  padding: 0.5rem 7%;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 2rem 7%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+} */
+
+/*logo tasarımı başlangıcı
+.logo {
+  flex-shrink: 0;
+   logo sabit kalsın 
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 9rem; /* ya da kullandığın boyut neyse 
+  width: auto;
+  border-radius: 25px;
+}
+.logo span {
+  color: black;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+logo tasarım bitiş*/
+
+
+/* NAVBAR 
+.navbar {
+  display: inline-block;
+  gap: 2rem;
+  justify-content: center;
+}
+.navbar a {
+  font-size: 1.6rem;
+  color: #212529;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.navbar a:hover {
+  border-color: #ff234f;
+  color: #ff234f;
+}
+.navbar a.active {
+  border-bottom: 2px solid #ff234f;
+  color: #ff234f;
+} */
+
+/* BUTONLAR */
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: inline-block;
+  transition: background 0.3s, color 0.3s;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.başla {
+  margin-top: 1rem;
+  display: inline-block;
+  background-color: #ff234f;
+  border-radius: 30px;
+  color: rgb(255, 255, 255);
+}
+
+
+
+.girisyap {
+  background-color: transparent;
+  color: #212529;
+  border: 1px solid #ccc;
+}
+
+.girisyap:hover {
+  background-color: #f1f1f1;
+}
+
+/* .kayitol {
+  background-color: #ff234f;
+  color: white;
+}
+
+.kayitol:hover {
+  background-color: #e00a38;
+} */
+
+/* MENU BUTTON */
+.menu-button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+/* .btn .kayitol {
+  border-radius: 30px;
+} */
+
+/*  */
+
+.slogan1 {
+  position: relative;
+  padding: 4rem 7%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  background-color: rgb(255, 212, 212);
+  overflow: hidden;
+}
+
+/*slogan2*/
+.slogan2 {
+  padding: 6rem 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  min-height: 80vh;
+  background-color: #f0eb8e; /* isteğe bağlı açık zemin */
+}
+
+/*slogan3*/
+.slogan3 {
+  padding: 6rem 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  min-height: 80vh;
+  background-color: #605c12; /* isteğe bağlı açık zemin */
+}
+
+/*slogan4*/
+.slogan4 {
+  padding: 6rem 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  min-height: 80vh;
+  background-color: #2fc2b1; /* isteğe bağlı açık zemin */
+}
+
+
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* METİN */
+.content {
+  flex: 1 1 40rem;
+}
+
+.content h3 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #111;
+}
+
+.content p {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  color: #444;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #737373;
+  border-radius: 2%;
+}
+
+
+.contact {
+  padding: 4rem 7%;
+  background-color: #f9f9f9;
+}
+
+.contact .heading {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #111111;
+}
+
+.contact .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact .map {
+  flex: 1 1 45rem;
+  height: 300px;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact form {
+  flex: 1 1 35rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact form h3 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.contact form .inputBox {
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.contact form .inputBox input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1.4rem;
+}
+
+.contact form .btn {
+  background-color: #ff234f;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact form .btn:hover {
+  background-color: #ffffff;
+}
+
+/*login kısmı*/
+/* Kararan arka plan ve modal kutusu */
+.login-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Arka plan kararma */
+  justify-content: center;
+  align-items: center;
+}
+
+.login-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 30px;
+  width: 350px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+.modal-content input[type="email"],
+.modal-content input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-content input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background: #e00a38;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content input[type="submit"]:hover {
+  background: #e00a38;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.remember-forgot a {
+  color: #e00a38;
+  text-decoration: none;
+}
+
+.signup-link {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.signup-link a {
+  color: #e00a38;
+  text-decoration: none;
+}
+
+/* Çıkış (kapat) butonu */
+.close-button {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/*kayıt ol modal başlangıç*/
+.register-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.register-modal.active {
+  display: flex;
+}
+
+.register-modal .modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 30px;
+  width: 350px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.register-modal input[type="text"],
+.register-modal input[type="email"],
+.register-modal input[type="password"],
+.register-modal input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register-modal input[type="submit"] {
+  background: #34a853;
+  color: white;
+  cursor: pointer;
+}
+
+.register-modal input[type="submit"]:hover {
+  background: #2a8b45;
+}
+
+.close-register {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.register-modal .signup-link a {
+  color: #e00a38;
+  text-decoration: none;
+}
+/*kayıt ol modal bitiş*/
+
+/*deneme*/
+/* Genel butonlar */
+.btn {
+  background: #ff234f;
+  color: white;
+  padding: 10px 18px;
+  text-decoration: none;
+  border-radius: 30px;
+  border-color: #ff234f;
+  font-weight: 500;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: #e00a38;
+}
+
+/* Modal arka plan */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Arka plan kararır */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal aktif hale geldiğinde görünür */
+.modal.active {
+  display: flex;
+}
+
+/* Modal kutusu */
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Giriş/Kayıt inputları */
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="password"],
+.modal-content input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Submit butonu */
+.modal-content input[type="submit"] {
+  background: #2a8b45;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-content input[type="submit"]:hover {
+  background: #2a8b45;
+}
+
+/* Kapatma butonları */
+.close-button,
+.close-register {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Diğer bağlantılar */
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  margin-bottom: 12px;
+}
+
+.signup-link a {
+  color: #e00a38;
+  text-decoration: none;
+}
+
+
+
+
+
+/* üçlü kart başlangıç*/
+
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .card {
+            flex: 1 1 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .card h2 {
+            font-size: 20px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .card h3 {
+            font-size: 18px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .card .highlight {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #ecf0f1;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        /* üçlü kart bitiş*/
+
+
+
+/*sayaç başlangıç*/
+        /* body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .counter-section {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+            text-align: center;
+            margin: 100px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .counters {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .counter-item {
+            padding: 20px;
+            margin: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .counter-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .counter-text {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        
+        .content-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background-color: #e9ecef;
+        }
+         */
+
+
+/* YENİ SAYAÇ STİLLERİ */
+.counter-section {
+
+  /*renk geçişli arka plan*/
+  /* background: linear-gradient(135deg, #4761c3, #eee0ff); */
+  color: rgb(0, 0, 0);
+  padding: 4rem 2rem;
+  text-align: center;
+  width: 100%;
+  margin: 3rem 0;
+}
+
+.counter-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.counter-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.counter-item {
+  flex: 1;
+  min-width: 250px;
+  margin: 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease;
+}
+
+.counter-item:hover {
+  transform: translateY(-10px);
+}
+
+.counter-fullwidth {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.counter-fullwidth .counter-item {
+  max-width: 600px;
+  width: 100%;
+}
+
+.counter-number {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.counter-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.counter-subtext {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Responsive ayarlar */
+@media (max-width: 768px) {
+  .counter-row {
+    flex-direction: column;
+  }
+  
+  .counter-item {
+    margin: 1rem 0;
+  }
+  
+  .counter-number {
+    font-size: 3rem;
+  }
+}
+
+
+
+
+        /* Animation classes */
+        .counting {
+            color: #e74c3c;
+        }
+        
+        .completed {
+            color: #2ecc71;
+        }
+
+
+
+
+
+
+
+        

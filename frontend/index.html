@@ -1,101 +1,414 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PsyAI - Giriş</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #edf6f9, #fff);
-      color: #023047;
-    }
-    header {
-      background-color: #219ebc;
-      color: white;
-      padding: 1.5em;
-      text-align: center;
-    }
-    main {
-      text-align: center;
-      padding: 4em 2em;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
-    }
-    p {
-      font-size: 1.2em;
-      margin-bottom: 2em;
-    }
-    nav {
-      margin-top: 2em;
-    }
-    nav a {
-      display: inline-block;
-      margin: 0.5em 1em;
-      padding: 0.8em 1.5em;
-      background-color: #ffb703;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    nav a:hover {
-      background-color: #fb8500;
-    }
-    .features {
-      margin-top: 4em;
-      display: flex;
-      justify-content: center;
-      gap: 2em;
-      flex-wrap: wrap;
-    }
-    .feature {
-      background-color: #8ecae6;
-      padding: 1.5em;
-      border-radius: 12px;
-      width: 180px;
-      text-align: center;
-      color: white;
-    }
-    footer {
-      background-color: #023047;
-      color: white;
-      text-align: center;
-      padding: 1em;
-      margin-top: 4em;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="s.css" />
+  <title>NEVA</title>
 </head>
 <body>
-  <header>
-    <h1>Hoş Geldiniz</h1>
-    <p>Yaş Dostu Zihin Sağlığı Asistanı</p>
+
+  <header class="header">
+    <!-- 
+    neva logosu
+    <a href="#" class="logo"><img src="images/logo1.png" alt="logo" /></a> -->
   </header>
-  <main>
-    <h2>PsyAI nedir?</h2>
-    <p>Yapay zeka destekli, anonim, destekleyici ve güvenli bir ruh sağlığı uygulamasıdır.</p>
-    <nav>
-      <a href="chat.html">💬 Sohbet</a>
-      <a href="mood.html">😊 Ruh Hali</a>
-      <a href="profile.html">👤 Profil</a>
-      <a href="community.html">👥 Topluluk</a>
-      <a href="settings.html">⚙️ Ayarlar</a>
+
+
+
+    <nav id="main-nav" class="hidden">
+        <div class="nav-left">
+           <a href="#slogan1">Hakkımızda </a>
+           <a href="#slogan2">slogan2 </a>
+            <a href="#slogan3">slogan3</a>
+            <a href="#slogan4">slogan4</a>
+
+        </div>
+        <div class="nav-center">
+            <h1>NEVA</h1>
+        </div>
+ <div class="auth-buttons">
+      <a href="#" class="btn girisyap" id="openLoginModal">Giriş Yap</a>
+      <a href="#" class="btn kayitol" id="openRegisterModal">Kayıt Ol</a>
+    </div>
+           
     </nav>
 
-    <div class="features">
-      <div class="feature">💬 Sohbet</div>
-      <div class="feature">📈 Takip</div>
-      <div class="feature">👥 Topluluk</div>
-    </div>
-  </main>
-  <footer>
-    <p>Nasıl çalışır? Yardım rehberine göz atın.</p>
-  </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+  <button class="menu-button">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+<!--1.slogan-->
+<section class="slogan1" id="slogan1">
+    <div class="row">
+    <div class="content">
+     
+      <h3>kısaca bilgi slogan</h3>
+      <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias fugit nihil ut impedit. Earum quo maiores ducimus tempore vitae placeat recusandae optio quam libero illo. Ad neque vel pariatur quis!
+      </p>
+      
+      </div>
+   </div>
+  </div>
+</section>
+
+
+<!-- üçlü kart -->
+
+
+<div class="container">
+        <!-- Birinci Kart -->
+        <div class="card">
+            <h1>Çalışanların %40'ının yardıma ihtiyacı var</h1>
+            <p><strong>Anıştırmanız, 30 çalışandan 4'ünün depresyon veya anksiyete semptomlarından muzdarip olduğunu, ancak YPG'nin azının damgalarının, farkındalık eksikliği ve zaman kısıtlamaları nedeniyle EAP'ye ulaştığını gösteriyor.</strong> Viyas ile konuşurken, çalışanların %42'si azalan ruh sağlıkları hakkında konuştu.</p>
+        </div>
+        
+        <!-- İkinci Kart -->
+        <div class="card">
+            <h2>Every year, unaddressed depression and anxiety costs $580 per employee</h2>
+            <h3>Sınırlı destek daha pahalıdır</h3>
+            <div class="divider"></div>
+            <p>Sınırlı destek, insanların erişimi geciktirmesi anlamına gelir. Semptomlar bildiğini ve iyileşme daha uzun sürer. Her yıl, de alınmıştan depresyon ve anksiyete, dayanarak, devam edilen üretektrik ve ilgin ayınına nedeniyle <span class="highlight">çalışan başına 560 dolara</span> mal olur. Bu, 50.000 çalışanı olan bir işveren için <span class="highlight">yılda 30 milyon dolar</span> demektir. ...</p>
+        </div>
+        
+        <!-- Üçüncü Kart -->
+        <div class="card">
+            <h2>Yapay zeka bakım çalışmalarının ilk adımı</h2>
+            <p>İnsanların Viyas ile kuruluğu duygusal bağ, bir insan tespitlerle bunları bağladık deridir ve <span class="highlight">10 kullanıcısı 10 'Viyas ile konuşumu faydalı bulmaktadır.</span> Yapay zeka destekli 6 yardımın, destek yükünden %80'ini üstlenirken semptomları iyileştirdiği ve insan desteğini gerçekten ihtiyaç duyulan yere yönlendirdiği kanıtlanmıştır.</p>
+        </div>
+
+
+
+
+<!--slogan2-->
+<section class="slogan2" id="slogan2">
+<div class="row">
+<div class="image">
+
+<div class="content">
+
+      <h3>SLOGAN2 </h3>
+      <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias fugit nihil ut impedit. Earum quo maiores ducimus tempore vitae placeat recusandae optio quam libero illo. Ad neque vel pariatur quis!
+      </p>
+      
+ 
+</div>
+</div>
+</section>
+
+<!--slogan3-->
+<section class="slogan3" id="slogan3">
+<div class="row">
+<div class="image">
+
+<div class="content">
+
+      <h3>SLOGAN3 </h3>
+      <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias fugit nihil ut impedit. Earum quo maiores ducimus tempore vitae placeat recusandae optio quam libero illo. Ad neque vel pariatur quis!
+      </p>
+</div>
+</div>
+</section>
+
+
+<!-- sayaç başlangıç -->
+<!-- 
+ <div class="content-section">
+
+    <div class="counter-section" id="counterSection">
+
+
+            <div class="counters">
+                <div class="counter-item">
+                    <div class="counter-number" data-target="11">0
+                    
+                    </div>
+                    <div class="counter-text">milyon</div>
+                    <div class="counter-text">Kapsanan Hayatlar</div>
+                </div>
+                <div class="counter-item">
+                    <div class="counter-number" data-target="91">0</div>
+                    <div class="counter-text">Projects Completed</div>
+                </div>
+                <div class="counter-item">
+                    <div class="counter-number" data-target="25">0</div>
+                    <div class="counter-text">Team Members</div>
+                </div>
+                <div class="counter-item">
+                    <div class="counter-number" data-target="98">0</div>
+                    <div class="counter-text">Success Rate (%)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+     -->
+
+<!-- YENİ SAYAÇ BÖLÜMÜ -->
+<section class="counter-section" id="counterSection">
+  <div class="counter-container">
+    <div class="counter-row">
+      <div class="counter-item">
+        <div class="counter-number" data-target="11">0</div>
+        <div class="counter-text">Milyon Hayat</div>
+        <div class="counter-subtext">Değişen yaşamlar</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-number" data-target="91">0</div>
+        <div class="counter-text">Kullanıcı</div>
+        <div class="counter-subtext">Hizmetimizi yararlı buluyor</div>
+      </div>
+    </div>
+    
+    <div class="counter-row">
+      <div class="counter-item">
+        <div class="counter-number" data-target="100">0</div>
+        <div class="counter-text">Milyon Konuşma</div>
+        <div class="counter-subtext">AI destekli etkileşim</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-number" data-target="95">0</div>
+        <div class="counter-text">Ülke</div>
+        <div class="counter-subtext">Küresel erişim</div>
+      </div>
+    </div>
+    
+    <div class="counter-fullwidth">
+      <div class="counter-item">
+        <div class="counter-number" data-target="10">0</div>
+        <div class="counter-text">Kat Daha Fazla</div>
+        <div class="counter-subtext">Ruh sağlığı desteğine erişim</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="slogan4" id="slogan4">
+<div class="content">
+     <h3>SLOGAN4</h3>
+      <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias fugit nihil ut impedit. Earum quo maiores ducimus tempore vitae placeat recusandae optio quam libero illo. Ad neque vel pariatur quis!
+      </p>
+      
+</div>
+<div class="row">
+
+
+</section>
+
+
+  <!-- GİRİŞ YAP MODALI -->
+  <div class="modal login-modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Giriş Yap</h2>
+      <form>
+        <input type="email" placeholder="E-posta" required>
+        <input type="password" placeholder="Şifre" required>
+        <div class="remember-forgot">
+          <label><input type="checkbox"> Beni Hatırla</label>
+          <a href="#">Şifremi Unuttum?</a>
+        </div>
+        <input type="submit" value="Giriş">
+        <p class="signup-link">
+          Kayıtlı değil misin? <a href="#" id="switchToRegister">Kayıt Ol</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- KAYIT OL MODALI -->
+  <div class="modal register-modal" id="registerModal">
+    <div class="modal-content">
+      <span class="close-register">&times;</span>
+      <h2>Kayıt Ol</h2>
+      <form id="registerForm">
+        <input type="text" placeholder="Adınız" required>
+        <input type="text" placeholder="Soyadınız" required>
+        <input type="email" placeholder="E-posta" required>
+        <input type="password" id="password" placeholder="Şifre" required>
+        <input type="password" id="confirmPassword" placeholder="Şifreyi Tekrar Girin" required>
+        <p id="passwordError" style="color: red; display: none;">Şifreler uyuşmuyor!</p>
+        <input type="submit" value="Kayıt Ol">
+        <p class="signup-link">
+          Zaten bir hesabın var mı? <a href="#" id="switchToLogin">Giriş Yap</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+
+  
+  <!-- JAVASCRIPT -->
+  <script>
+    const loginModal = document.getElementById("loginModal");
+    const registerModal = document.getElementById("registerModal");
+
+    const openLoginBtn = document.getElementById("openLoginModal");
+    const openRegisterBtn = document.getElementById("openRegisterModal");
+
+    const closeLoginBtn = document.querySelector(".close-button");
+    const closeRegisterBtn = document.querySelector(".close-register");
+
+    const switchToRegisterLink = document.getElementById("switchToRegister");
+    const switchToLoginLink = document.getElementById("switchToLogin");
+
+    // Modal Aç
+    openLoginBtn.addEventListener("click", e => {
+      e.preventDefault();
+      loginModal.classList.add("active");
+      registerModal.classList.remove("active");
+    });
+
+    openRegisterBtn.addEventListener("click", e => {
+      e.preventDefault();
+      registerModal.classList.add("active");
+      loginModal.classList.remove("active");
+    });
+
+    // Modal Kapat
+    closeLoginBtn.addEventListener("click", () => loginModal.classList.remove("active"));
+    closeRegisterBtn.addEventListener("click", () => registerModal.classList.remove("active"));
+
+    window.addEventListener("click", e => {
+      if (e.target === loginModal) loginModal.classList.remove("active");
+      if (e.target === registerModal) registerModal.classList.remove("active");
+    });
+
+    // Modal Geçişleri
+    switchToRegisterLink.addEventListener("click", e => {
+      e.preventDefault();
+      loginModal.classList.remove("active");
+      registerModal.classList.add("active");
+    });
+
+    switchToLoginLink.addEventListener("click", e => {
+      e.preventDefault();
+      registerModal.classList.remove("active");
+      loginModal.classList.add("active");
+    });
+
+    // Şifre Eşleşme Kontrolü
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      const pw = document.getElementById("password").value;
+      const cpw = document.getElementById("confirmPassword").value;
+      const errorMsg = document.getElementById("passwordError");
+
+      if (pw !== cpw) {
+        e.preventDefault();
+        errorMsg.style.display = "block";
+      } else {
+        errorMsg.style.display = "none";
+      }
+    });
+
+
+    //hadi başlayalım
+    const startNowBtn = document.getElementById("startNowBtn");
+
+startNowBtn.addEventListener("click", e => {
+  e.preventDefault();
+  registerModal.classList.add("active");
+  loginModal.classList.remove("active");
+});
+
+  </script>
+
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const counterElements = document.querySelectorAll('.counter-number');
+            const counterSection = document.getElementById('counterSection');
+            let animationInProgress = false;
+            let animationTimeout;
+            
+            // Reset all counters to 0
+            function resetCounters() {
+                counterElements.forEach(element => {
+                    element.textContent = '0';
+                    element.classList.remove('counting', 'completed');
+                });
+            }
+            
+            // Check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight * 0.75) && // Start animation when 75% in view
+                    rect.bottom >= (window.innerHeight * 0.25)
+                );
+            }
+            
+            // Animate counter
+            function animateCounter(element, target) {
+                let current = 0;
+                const increment = target / 50; // Slower animation
+                element.classList.add('counting');
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                        element.classList.remove('counting');
+                        element.classList.add('completed');
+                    }
+                    element.textContent = Math.floor(current);
+                }, 20); // Increased duration for smoother effect
+            }
+            
+            // Handle scroll event with debounce
+            function handleScroll() {
+                // Clear any pending timeout
+                clearTimeout(animationTimeout);
+                
+                // Debounce the scroll event
+                animationTimeout = setTimeout(() => {
+                    if (isInViewport(counterSection)) {
+                        if (!animationInProgress) {
+                            animationInProgress = true;
+                            resetCounters();
+                            
+                            // Small delay before starting animation
+                            setTimeout(() => {
+                                counterElements.forEach(element => {
+                                    const target = parseInt(element.getAttribute('data-target'));
+                                    animateCounter(element, target);
+                                });
+                            }, 300);
+                        }
+                    } else {
+                        // Reset animation flag when section leaves viewport
+                        animationInProgress = false;
+                    }
+                }, 100);
+            } 
+            window.addEventListener('scroll', handleScroll);
+           
+            handleScroll();
+        });
+    </script>
+
+    <!-- sayaç bitiş -->
+</body>
+</html>
+
+
+
