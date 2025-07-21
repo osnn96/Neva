@@ -4,10 +4,35 @@ from datetime import datetime
 from dotenv import load_dotenv
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+app = FastAPI()
+
+# CORS ayarı (frontend ile backend farklı portlarda çalışıyorsa şart)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Güvenlik için prod'da spesifik domain(ler)i yazın.
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class ChatRequest(BaseModel):
+    mesaj: str
+    user_id: str = "web_user" # Web arayüzü için varsayılan kullanıcı
+    mode: str = "psych"      # Web arayüzü konuları için varsayılan mod
+
+class ContactRequest(BaseModel):
+    ad: str
+    email: str
+    konu: str
+    mesaj: str
 
 # --- Constants ---
-MAX_HISTORY_MESSAGES = 10  # Messages to keep in immediate context
-SUMMARY_INTERVAL = 6       # Messages between summaries
+MAX_HISTORY_MESSAGES = 10  # Anlık bağlamda tutulacak mesaj sayısı
+SUMMARY_INTERVAL = 6       # Özetlemeler arasındaki mesaj sayısı
 USER_DATA_DIR = "user_data"
 
 # old system instructions for different modes
@@ -39,6 +64,26 @@ MODES = {
             Örnek: 'Bu konuda kendinizi yalnız hissetmeniz çok doğal. Duygularınızı paylaştığınız için teşekkür ederim.'
         """
     }
+}
+
+# --- AI Model and Safety Configuration ---
+load_dotenv()
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+safety_settings = {
+    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+}
+
+models = {
+    mode_name: genai.GenerativeModel(
+        model_name='gemini-1.5-pro-latest',
+        # system_instruction parametresi eski kütüphane sürümleriyle uyumluluk için kaldırıldı.
+        # Her istekte `generate_content` fonksiyonuna manuel olarak eklenecek.
+        safety_settings=safety_settings
+    ) for mode_name, details in MODES.items()
 }
 
 # --- Memory Management Functions ---
@@ -172,99 +217,59 @@ def generate_summary(model, user_data: dict, mode: str):
     mode_data["last_summary_index"] = len(mode_data["full_history"])
     return user_data
 
-# --- Main Application ---
-def main():
-    load_dotenv()
-    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-    
-    user_id = input("İsminizi girin: ").strip() or "misafir"
-    user_data = load_user_data(user_id)
-    
-    # Mod seçimi
-    print("\nLütfen bir mod seçin:")
-    for key, mode in MODES.items():
-        print(f"{key[0]}) {mode['name']}")
-    
-    mode_choice = input("Seçiminiz (f/p): ").lower()
-    selected_mode = "psych" if mode_choice == "p" else "friend"
-    
-    # Modeli seçilen moda göre oluştur
-    model = genai.GenerativeModel(
-        model_name='gemini-1.5-pro-latest',
-        system_instruction=MODES[selected_mode]["system_instruction"],
-        safety_settings={
-            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        }
-    )
-    
-    # Sohbeti başlat
-    chat = model.start_chat(history=build_context(user_data, selected_mode))
-    print(f"\nNeva ({MODES[selected_mode]['name']}): Merhaba {user_id}! Bugün nasılsınız?")
-    print("(Mod değiştirmek için '/mod', çıkmak için '/çıkış' yazın)")
+# --- API Endpoints ---
+@app.post("/api/sohbet")
+async def sohbet(request: ChatRequest):
+    user_id = request.user_id
+    mode = request.mode
+    user_input = request.mesaj
 
-    current_mode = selected_mode
-    
-    while True:
-        try:
-            user_input = input("\nSiz: ")
-            
-            # Özel komutları kontrol et
-            if user_input.lower() == '/çıkış':
-                break
-                
-            elif user_input.lower() == '/mod':
-                # Mod değiştirme
-                print("\nLütfen yeni mod seçin:")
-                for key, mode in MODES.items():
-                    print(f"{key[0]}) {mode['name']}")
-                
-                mode_choice = input("Seçiminiz (f/p): ").lower()
-                new_mode = "psych" if mode_choice == "p" else "friend"
-                
-                if new_mode != current_mode:
-                    current_mode = new_mode
-                    model = genai.GenerativeModel(
-                        model_name='gemini-1.5-pro-latest',
-                        system_instruction=MODES[current_mode]["system_instruction"]
-                    )
-                    chat = model.start_chat(history=build_context(user_data, current_mode))
-                    print(f"\nNeva: Mod değiştirildi! Şimdi {MODES[current_mode]['name']} modundayım.")
-                continue
+    if mode not in MODES:
+        return {"hata": "Geçersiz mod seçimi."}, 400
 
-            # Mesajı işle
-            response = chat.send_message(user_input)
-            response_text = response.text
-            
-            # Dil kontrolü
-            if not any(char in "çğıöşüÇĞİÖŞÜ" for char in response_text):
-                response = chat.send_message("Lütfen bu cevabı TÜRKÇE olarak ver!")
-                response_text = response.text
-            
-            print(f"Neva: {response_text}")
-            
-            # Geçmişi güncelle
-            mode_data = user_data["modes"][current_mode]
-            mode_data["full_history"].extend([
-                {"role": "user", "parts": [user_input]},
-                {"role": "model", "parts": [response_text]}
-            ])
-            
-            # Özet oluştur
-            if needs_summarization(user_data, current_mode):
-                user_data = generate_summary(model, user_data, current_mode)
-                chat = model.start_chat(history=build_context(user_data, current_mode))
-                
-        except KeyboardInterrupt:
-            break
-        except Exception as e:
-            print(f"Hata: {str(e)}")
-    
-    # Çıkışta kaydet
-    save_user_data(user_data)
-    print(f"\nNeva: Görüşmek üzere {user_id}! Sizinle sohbet etmek güzeldi.")
+    try:
+        user_data = load_user_data(user_id)
+        model = models[mode]
+        system_instruction = MODES[mode]["system_instruction"]
+        history = build_context(user_data, mode)
+        
+        # Mesajı işle
+        response = model.generate_content(
+            history,
+            generation_config={"temperature": 0.9}, # Yaratıcılık için
+            safety_settings=safety_settings,
+            stream=False # Stream'i kapatarak tam yanıtı bekle
+        )
+        response_text = response.text
 
-if __name__ == "__main__":
-    main()
+
+        # Geçmişi güncelle
+        mode_data = user_data["modes"][mode]
+        mode_data["full_history"].extend([
+            {"role": "user", "parts": [user_input]},
+            {"role": "model", "parts": [response_text]}
+        ])
+        
+        # Gerekirse özet oluştur ve bağlamı yenile
+        if needs_summarization(user_data, mode):
+            # Özetleme için genel amaçlı bir model kullanalım
+            summary_model = models["friend"] 
+            user_data = generate_summary(summary_model, user_data, mode)
+        
+        save_user_data(user_data)
+        
+        return {"cevap": response_text}
+
+    except Exception as e:
+        print(f"API Hatası: {str(e)}")
+        return {"hata": "Mesajınız işlenirken bir hata oluştu. Lütfen tekrar deneyin."}, 500
+
+@app.post("/api/iletisim")
+async def iletisim(request: ContactRequest):
+    # Gelen veriyi yazdır (gerçek uygulamada veritabanına kaydedilebilir veya e-posta gönderilebilir)
+    print(f"Yeni İletişim Formu Mesajı:")
+    print(f"  Ad: {request.ad}")
+    print(f"  Email: {request.email}")
+    print(f"  Konu: {request.konu}")
+    print(f"  Mesaj: {request.mesaj}")
+    return {"mesaj": "Mesajınız başarıyla alındı! Teşekkür ederiz."}

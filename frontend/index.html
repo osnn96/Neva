@@ -1405,7 +1405,7 @@
                 </div>
             </div>
             <div class="contact-form fade-in visible">
-                <form>
+                <form id="homeContactForm">
                     <div class="form-group">
                         <label for="name" class="form-label">Ad Soyad</label>
                         <input type="text" id="name" class="form-input" required="">
@@ -1705,6 +1705,8 @@
     </div>
 
     <script>
+        let currentChatId = 'anxiety'; // Varsayılan sohbet
+
         // Page navigation
         function showPage(pageId) {
             // Hide all pages
@@ -1733,9 +1735,13 @@
             if (targetPage) {
                 targetPage.classList.add('fade-in');
             }
+             // Eğer sohbet sayfasına geçiliyorsa, mevcut sohbeti yükle
+            if (pageId === 'chat') {
+                loadChat(currentChatId);
+            }
         }
 
-        // Chat conversations data
+        // Chat conversations data (artık sadece ilk görünüm için kullanılacak)
         const chatConversations = {
             anxiety: {
                 title: "Kaygı Yönetimi",
@@ -1814,133 +1820,169 @@
                 ]
             }
         };
+        
 
         // Load chat conversation
         function loadChat(chatId) {
+            currentChatId = chatId; // Mevcut sohbet ID'sini güncelle
             const conversation = chatConversations[chatId];
             if (!conversation) return;
 
             // Update active chat item
-            document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
+            document.querySelectorAll('.chat-item').forEach(item => {
+                const chatLink = item.getAttribute('onclick');
+                if (chatLink && chatLink.includes(`loadChat('${chatId}')`)) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
 
-            // Load messages
+            // Load initial messages
             const messagesContainer = document.getElementById('chatMessages');
             if (!messagesContainer) return;
 
             messagesContainer.innerHTML = '';
 
             conversation.messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${msg.type}`;
-                messageDiv.innerHTML = `
-                    <div>${msg.text}</div>
-                    <div class="message-time">${msg.time}</div>
-                `;
-                messagesContainer.appendChild(messageDiv);
+                addMessageToUI(msg.text, msg.type);
             });
 
             // Scroll to bottom
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Initialize everything safely
-        document.addEventListener('DOMContentLoaded', function() {
+        // Kullanıcı ve AI mesajlarını arayüze ekleyen yardımcı fonksiyon
+        function addMessageToUI(text, type, isLoading = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            if (!messagesContainer) return;
+        
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+        
+            if (isLoading) {
+                messageDiv.innerHTML = `<div class="loading-dots"><div></div><div></div><div></div></div>`;
+            } else {
+                // Metni HTML olarak işle, böylece <br> gibi etiketler çalışır
+                const contentDiv = document.createElement('div');
+                contentDiv.innerHTML = text.replace(/\n/g, '<br>'); // Yeni satırları <br> ile değiştir
+        
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'message-time';
+                timeDiv.textContent = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        
+                messageDiv.appendChild(contentDiv);
+                messageDiv.appendChild(timeDiv);
+            }
+        
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            return messageDiv; // Gerekirse daha sonra güncellemek için (loading indicator)
+        }
+
+
+        // Send message to backend
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const messageText = input.value.trim();
+            if (!messageText) return;
+
+            // Display user message immediately
+            addMessageToUI(messageText, 'user');
+            input.value = '';
+            
+            // Show loading indicator
+            const loadingIndicator = addMessageToUI('', 'ai', true);
+
             try {
-                // Initialize chat only if we're on chat page
-                const chatMessages = document.getElementById('chatMessages');
-                if (chatMessages) {
-                    loadChat('anxiety');
-                }
-                
-                const messageInput = document.getElementById('messageInput');
-                if (messageInput) {
-                    messageInput.addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') {
-                            sendMessage();
-                        }
-                    });
-                }
+                const response = await fetch('http://localhost:8000/api/sohbet', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        mesaj: messageText,
+                        user_id: "web_user", // Statik user_id veya ileride dinamikleşebilir
+                        mode: "psych"      // Konulara göre "psych" modu varsayılan
+                    })
+                });
 
-                // Initialize home page form
-                const homeContactForm = document.getElementById('homeContactForm');
-                if (homeContactForm) {
-                    homeContactForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        
-                        const submitBtn = this.querySelector('.home-form-submit');
-                        if (submitBtn) {
-                            const originalText = submitBtn.textContent;
-                            submitBtn.textContent = 'Gönderiliyor...';
-                            submitBtn.disabled = true;
-                            
-                            setTimeout(() => {
-                                alert('Mesajınız başarıyla gönderildi! En kısa sürede size geri dönüş yapacağız.');
-                                this.reset();
-                                submitBtn.textContent = originalText;
-                                submitBtn.disabled = false;
-                            }, 2000);
-                        }
-                    });
+                // Remove loading indicator
+                loadingIndicator.remove();
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    addMessageToUI(`Hata: ${errorData.hata || 'Bilinmeyen bir hata oluştu.'}`, 'ai');
+                    return;
                 }
 
-                // Add fade-in animation to visible elements
-                const observerOptions = {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -50px 0px'
-                };
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting && entry.target.classList) {
-                            entry.target.classList.add('fade-in');
-                        }
-                    });
-                }, observerOptions);
-
-                // Safely observe elements
-                const fadeElements = document.querySelectorAll('.fade-in');
-                if (fadeElements) {
-                    fadeElements.forEach(el => {
-                        if (el && el.classList) {
-                            observer.observe(el);
-                        }
-                    });
-                }
-
-                // Initialize other contact forms
-                const otherContactForms = document.querySelectorAll('form:not(#homeContactForm)');
-                if (otherContactForms) {
-                    otherContactForms.forEach(form => {
-                        form.addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            
-                            const submitBtn = this.querySelector('.form-submit');
-                            if (submitBtn) {
-                                const originalText = submitBtn.textContent;
-                                submitBtn.textContent = 'Gönderiliyor...';
-                                submitBtn.disabled = true;
-                                
-                                setTimeout(() => {
-                                    alert('Mesajınız başarıyla gönderildi! En kısa sürede size geri dönüş yapacağız.');
-                                    this.reset();
-                                    submitBtn.textContent = originalText;
-                                    submitBtn.disabled = false;
-                                }, 2000);
-                            }
-                        });
-                    });
-                }
+                const data = await response.json();
+                addMessageToUI(data.cevap, 'ai');
 
             } catch (error) {
-                console.log('Initialization error:', error);
+                 // Remove loading indicator
+                if (loadingIndicator) {
+                    loadingIndicator.remove();
+                }
+                console.error("Mesaj gönderme hatası:", error);
+                addMessageToUI("Bağlantı hatası. Lütfen daha sonra tekrar deneyin.", 'ai');
             }
-        });
+        }
 
-        // Enter key support for chat
+
+        // Handle contact form submission
+        function handleContactFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('.form-submit');
+            const originalText = submitBtn.textContent;
+            
+            const nameInput = form.querySelector('[id="name"]');
+            const emailInput = form.querySelector('[id="email"]');
+            const subjectInput = form.querySelector('[id="subject"]');
+            const messageInput = form.querySelector('[id="message"]');
+
+            if (!nameInput || !emailInput || !subjectInput || !messageInput) {
+                console.error("Form alanları bulunamadı.");
+                return;
+            }
+            
+            const formData = {
+                ad: nameInput.value,
+                email: emailInput.value,
+                konu: subjectInput.value,
+                mesaj: messageInput.value
+            };
+
+            submitBtn.textContent = 'Gönderiliyor...';
+            submitBtn.disabled = true;
+
+            fetch('http://localhost:8000/api/iletisim', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.mesaj);
+                form.reset();
+            })
+            .catch(error => {
+                console.error('İletişim formu hatası:', error);
+                alert('Mesajınız gönderilirken bir hata oluştu.');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+
+        // Initialize everything safely
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize chat
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                loadChat(currentChatId); // 'anxiety'
+            }
+            
             const messageInput = document.getElementById('messageInput');
             if (messageInput) {
                 messageInput.addEventListener('keypress', function(e) {
@@ -1950,8 +1992,11 @@
                 });
             }
 
-            // Initialize with anxiety chat
-            loadChat('anxiety');
+            // Initialize contact form
+            const contactForm = document.getElementById('homeContactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleContactFormSubmit);
+            }
 
             // Add fade-in animation to visible elements
             const observerOptions = {
@@ -1962,7 +2007,7 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
+                        entry.target.classList.add('visible');
                     }
                 });
             }, observerOptions);
