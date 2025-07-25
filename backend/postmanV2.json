@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "6362295a-c534-41e7-b92c-df573a923cb2",
+		"name": "AIProje",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19752763"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Ahmet\",\n    \"last_name\": \"Yılmaz\", \n    \"email\": \"ahmet@example.com\",\n    \"password\": \"123456\",\n    \"password_confirm\": \"123456\",\n    \"birth_date\": \"15.08.1990\",\n    \"gender\": \"male\",\n    \"terms_accepted\": true,\n    \"privacy_accepted\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/auth/register",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ahmet@example.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "Bearer d8f89b0e699a671102e6bb8fee7b1b3b2aa985c10374850c9e7c66556aceaf0f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/auth/logout",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "Bearer d8f89b0e699a671102e6bb8fee7b1b3b2aa985c10374850c9e7c66556aceaf0f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/auth/logout",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "Bearer d8f89b0e699a671102e6bb8fee7b1b3b2aa985c10374850c9e7c66556aceaf0f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/auth/logout",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "Bearer 85c17f135281779fc776bae609bddc4beafbf12123b6187f2432a5f654e8ffd8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/user/profile",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "Bearer 85c17f135281779fc776bae609bddc4beafbf12123b6187f2432a5f654e8ffd8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Enes\",\n    \"last_name\": \"Güryeli\",\n    \"birth_date\": \"06.05.1998\",\n    \"gender\": \"male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aiproje.guryeli.com/api/user/profile",
+					"protocol": "https",
+					"host": [
+						"aiproje",
+						"guryeli",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
