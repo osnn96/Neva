@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+<link rel="icon" href="image/favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chat_menu.css">
+
+    <title>Neva - AI Sohbet Platformu</title>
+
+
+</head>
+<body>
+    <!-- Navbar Bölümü -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container" onclick="showPage('home')">
+                <img src="image/nevalogo.png" alt="Neva logo" class="logo-image">
+                <span class="logo-text">NEVA</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" onclick="showPage('home')" class="active">Ana Sayfa</a></li>
+                <li><a href="chat_menu.html" onclick="showPage('chat'); loadChat('envie')">Sohbet</a></li>
+                <li><a href="index.html" onclick="showPage('foturus')">Özellikler</a></li>
+                <li><a href="index.html" onclick="showPage('about')">Hakkında</a></li>
+            </ul>
+            
+            <div class="auth-button">
+                <a href="girisyap.html" class="nav-login" target="_blank">Giriş Yap</a>
+                <a href="kayitol.html" class="nav-cta" target="_blank">Kayıt Ol</a>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    
+    <!-- Ana İçerik Bölümü -->
+    <div class="main-content">
+        <h1 class="page-title">Sohbet Seçenekleri</h1>
+        
+        <div class="options-container">
+            <div class="option-box" onclick="window.location.href='chat_sesli.html'">
+                Sesli Sohbet
+            </div>
+            <div class="option-box" onclick="window.location.href='chat_yazili.html'">
+                Yazılı Sohbet
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(page) {
+            // Sayfa değiştirme fonksiyonu
+            console.log(page + " sayfası gösteriliyor");
+            // Burada gerçek sayfa değiştirme mantığını ekleyebilirsiniz
+        }
+        
+        function loadChat(type) {
+            // Sohbet yükleme fonksiyonu
+            console.log(type + " sohbeti yükleniyor");
+        }
+    </script>
+
+
+
+
+
+
+</body>
+</html>

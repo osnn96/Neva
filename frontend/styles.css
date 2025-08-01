@@ -452,6 +452,7 @@
             color: #ffffff;
             overflow-x: hidden;
             line-height: 1.6;
+            font-size: 15px;
         }
 
         /* Navigation */
@@ -723,8 +724,8 @@
         }
 
         .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: auto;
+            margin: auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
@@ -732,7 +733,7 @@
 
         .stat-item {
             text-align: center;
-            padding: 2rem;
+            padding: 1rem;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1193,3 +1194,6 @@
         .fade-in {
             animation: fadeIn 0.5s ease forwards;
         }
+        
+
+        
