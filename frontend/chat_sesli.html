@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neva - Sohbet</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="image/favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Temel layout (varsa external ile çatışmasın) */
+      
+        /* Ana sohbet bölümü */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            gap: 0.75rem;
+        }
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .chat-info h3 {
+            margin: 0;
+        }
+        .chat-status {
+            font-size: 0.85rem;
+            color: #0ff;
+            margin-top: 2px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            scroll-behavior: smooth;
+        }
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            position: relative;
+            line-height: 1.3;
+        }
+        .message.ai {
+            align-self: flex-start;
+        }
+        .message.user {
+            align-self: flex-end;
+        }
+        .message-time {
+            font-size: 0.6rem;
+            margin-top: 4px;
+            opacity: 0.7;
+            text-align: right;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+       
+
+        /* Scrollbar custom (Webkit) */
+        .chat-sidebar::-webkit-scrollbar,
+        .chat-messages::-webkit-scrollbar {
+            width: 10px;
+        }
+        .chat-sidebar::-webkit-scrollbar-track,
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+            border-radius: 5px;
+        }
+        .chat-sidebar::-webkit-scrollbar-thumb,
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.12);
+            border-radius: 5px;
+        }
+        .chat-sidebar::-webkit-scrollbar-thumb:hover,
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        /* Responsive küçük ekran */
+        @media (max-width: 1000px) {
+            .chat-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .chat-sidebar {
+                max-height: 220px;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container" onclick="window.location.href='index.html'">
+                <img src="image/nevalogo.png" alt="Neva Logo" class="logo-image">
+                <span class="logo-text">NEVA</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="chat_menu.html" class="active">Sohbet</a></li>
+                <li><a href="index.html">Özellikler</a></li>
+                <li><a href="index.html">Hakkında</a></li>
+            </ul>
+
+            <div class="auth-buttons">
+                <a href="girisyap.html" class="nav-login" target="nav-login">Giriş Yap</a>
+                <a href="kayitol.html" class="nav-cta" target="nav-cta">Kayıt Ol</a> 
+            </div>
+       
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+ 
+        <!-- Mobile Menu-->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+    </nav>
+
+    <div class="page-container">
+        <!-- Sohbet -->
+        <section id="chat" class="page-section active">
+            <h1 class="page-title fade-in">Neva ile Sohbet</h1>
+            <p class="page-subtitle fade-in">Yapay zeka destekli psikolojik destek asistanınız ile güvenli bir ortamda konuşun</p>
+            
+            <div class="chat-container fade-in">
+                <div class="chat-sidebar">
+                    <h3 style="margin-bottom: 1rem; color: #00f5ff;">Sohbet Geçmişi</h3>
+                    <div class="chat-list">
+                        <div class="chat-item active" onclick="loadChat('anxiety', event)">
+                            <div class="chat-item-title">Kaygı Yönetimi</div>
+                            <div class="chat-item-preview">Bugün kendimi nasıl daha iyi hissedebilirim?</div>
+                            <div class="chat-item-date">2 saat önce</div>
+                        </div>
+                        <div class="chat-item" onclick="loadChat('sleep', event)">
+                            <div class="chat-item-title">Uyku Problemi</div>
+                            <div class="chat-item-preview">Geceleri uyuyamıyorum, ne yapmalıyım?</div>
+                            <div class="chat-item-date">Dün</div>
+                        </div>
+                        <div class="chat-item" onclick="loadChat('stress', event)">
+                            <div class="chat-item-title">Stres Yönetimi</div>
+                            <div class="chat-item-preview">İş stresi ile nasıl başa çıkabilirim?</div>
+                            <div class="chat-item-date">3 gün önce</div>
+                        </div>
+                        <div class="chat-item" onclick="loadChat('motivation', event)">
+                            <div class="chat-item-title">Motivasyon</div>
+                            <div class="chat-item-preview">Kendimi motive etmek için ipuçları</div>
+                            <div class="chat-item-date">1 hafta önce</div>
+                        </div>
+                        <div class="chat-item" onclick="loadChat('relationships', event)">
+                            <div class="chat-item-title">İlişki Sorunları</div>
+                            <div class="chat-item-preview">Arkadaşlarımla olan problemler...</div>
+                            <div class="chat-item-date">1 hafta önce</div>
+                        </div>
+                        <div class="chat-item" onclick="loadChat('selfcare', event)">
+                            <div class="chat-item-title">Öz Bakım</div>
+                            <div class="chat-item-preview">Kendime nasıl daha iyi bakabilirim?</div>
+                            <div class="chat-item-date">2 hafta önce</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <div class="chat-avatar">N</div>
+                        <div class="chat-info">
+                            <h3>Neva</h3>
+                            <div class="chat-status">• Çevrimiçi</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Mesajlar buraya gelir -->
+                    </div>
+                    
+                    <div class="chat-input">
+                        <input type="text" placeholder="Mesajınızı yazın..." id="messageInput">
+                        <button class="chat-send" onclick="sendMessage()">Gönder</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sohbet data
+        const chatConversations = {
+            anxiety: {
+                title: "Kaygı Yönetimi",
+                messages: [
+                    { type: 'ai', text: 'Merhaba! Ben Neva, yapay zeka destekli psikolojik destek asistanınız. Size nasıl yardımcı olabilirim?', time: '14:30' },
+                    { type: 'user', text: 'Merhaba Neva, bugün kendimi biraz kaygılı hissediyorum. Bu durumla nasıl başa çıkabilirim?', time: '14:32' },
+                    { type: 'ai', text: 'Anlıyorum, kaygı hissetmek çok normal bir durum. Öncelikle derin nefes alın ve şu anki durumunuzu kabul edin. Size birkaç basit teknik önerebilirim:<br><br>1. 4-7-8 nefes tekniği: 4 saniye nefes alın, 7 saniye tutun, 8 saniye verin<br>2. Şu anki çevrenizde 5 şey görün, 4 şey duyun, 3 şey hissedin<br>3. Kaygılarınızı kağıda yazın<br><br>Hangi tekniği denemek istersiniz?', time: '14:33' },
+                    { type: 'user', text: 'Nefes tekniğini denemek istiyorum, nasıl yapacağım?', time: '14:35' },
+                    { type: 'ai', text: 'Harika seçim! 4-7-8 nefes tekniği çok etkili. Şimdi beraber yapalım:<br><br>1. Rahat bir pozisyonda oturun<br>2. Ağzınızdan tüm havanızı verin<br>3. Burnunuzdan 4 saniye nefes alın<br>4. Nefesinizi 7 saniye tutun<br>5. Ağzınızdan 8 saniye boyunca verin<br><br>Bunu 3-4 kez tekrarlayın. Hazır mısınız?', time: '14:36' },
+                    { type: 'user', text: 'Evet hazırım, deneyelim.', time: '14:37' },
+                    { type: 'ai', text: 'Mükemmel! Şimdi başlayalım. Gözlerinizi kapatın ve benimle birlikte nefes alın. Derin bir nefes alın... 1... 2... 3... 4... Şimdi tutun... 1... 2... 3... 4... 5... 6... 7... Ve yavaşça verin... 1... 2... 3... 4... 5... 6... 7... 8...<br><br>Nasıl hissediyorsunuz? Biraz daha rahat mısınız?', time: '14:38' }
+                ]
+            },
+            sleep: {
+                title: "Uyku Problemi",
+                messages: [
+                    { type: 'ai', text: 'Merhaba! Uyku sorunlarınız hakkında konuşmak istersiniz? Size nasıl yardımcı olabilirim?', time: '22:15' },
+                    { type: 'user', text: 'Merhaba Neva, geceleri uyuyamıyorum. Sürekli düşünüyorum ve kafam durmuyor.', time: '22:17' },
+                    { type: 'ai', text: 'Anlıyorum, bu çok yaygın bir problem. Zihinsel koşturmaca uyku kalitesini çok etkiler. Size birkaç önerim var:<br><br>1. Uyku öncesi 30 dakika telefon/bilgisayar kullanmamak<br>2. Kafanızdaki düşünceleri bir kağıda yazmak<br>3. Nefes egzersizleri yapmak<br>4. Gevşeme teknikleri uygulamak<br><br>Hangi konuda daha fazla bilgi almak istersiniz?', time: '22:18' },
+                    { type: 'user', text: 'Düşünceleri kağıda yazmak ilginç geldi. Nasıl yapacağım?', time: '22:20' },
+                    { type: 'ai', text: 'Harika bir seçim! Bu teknik "beyin boşaltma" olarak da biliniyor. İşte nasıl yapacağınız:<br><br>1. Yataktan önce 10-15 dakika ayırın<br>2. Aklınızdaki her şeyi yazın - endişeler, yapılacaklar, düşünceler<br>3. Yazdıktan sonra kağıdı kapatın ve "şimdi bunları bırakıyorum" deyin<br>4. Zihninizdeki her şeyi kağıda aktardığınız için artık rahat edebilirsiniz<br><br>Bu teknik çok etkili çünkü zihnimiz "unutma" korkusu yaşar. Yazınca bu korku gider.', time: '22:21' },
+                    { type: 'user', text: 'Bu gece deneyeceğim. Teşekkürler Neva!', time: '22:23' },
+                    { type: 'ai', text: 'Rica ederim! Umarım bu gece daha iyi uyuyabilirsiniz. Yarın nasıl geçtiğini de konuşabiliriz. İyi geceler! 🌙', time: '22:24' }
+                ]
+            },
+            stress: {
+                title: "Stres Yönetimi",
+                messages: [
+                    { type: 'ai', text: 'Merhaba! Stres konusunda size nasıl yardımcı olabilirim?', time: '09:15' },
+                    { type: 'user', text: 'İş yerinde çok stres yaşıyorum. Sürekli gergin hissediyorum ve eve geldiğimde de bu stres devam ediyor.', time: '09:17' },
+                    { type: 'ai', text: 'İş stresi çok yorucu olabilir ve ev yaşamınızı da etkileyebilir. Bunun için birkaç stratejim var:<br><br>1. İş-özel yaşam sınırları koymak<br>2. Günlük stres atma ritüelleri geliştirmek<br>3. Kısa molalar alarak kendinizi resetlemek<br>4. Stres kaynaklarını belirleyip kontrol edebileceklerinizi ayırmak<br><br>Hangi alan sizi daha çok ilgilendiriyor?', time: '09:18' },
+                    { type: 'user', text: 'Stres atma ritüelleri ilginç geldi. Neler yapabilirim?', time: '09:20' },
+                    { type: 'ai', text: 'Harika! Stres atma ritüelleri çok etkili. İşte birkaç örnek:<br><br>📱 İş çıkışı telefonunuzu sessiz moda alın<br>🚶‍♀️ 5 dakika yürüyüş yapın<br>🎵 Sevdiğiniz müziği dinleyin<br>🧘‍♀️ 3 dakika derin nefes alın<br>📝 Günün olumlu yanlarını yazın<br>🚿 Duş alırken "işi yıkadığınızı" hayal edin<br><br>Hangisi size daha uygun geldi?', time: '09:21' },
+                    { type: 'user', text: 'Duş alırken stres yıkama tekniği çok güzel! Bunu deneyeceğim.', time: '09:23' },
+                    { type: 'ai', text: 'Mükemmel seçim! Bu teknik çok güçlü çünkü zihnimiz sembolik eylemleri çok iyi anlar. Duş alırken tüm günün stresini, gerginliği ve olumsuzluklarını suyun akıp gittiğini hayal edin. Temiz çıktığınızda sadece vücudunuz değil, ruhunuz da temizlenmiş olacak. 🚿✨', time: '09:24' }
+                ]
+            },
+            motivation: {
+                title: "Motivasyon",
+                messages: [
+                    { type: 'ai', text: 'Merhaba! Motivasyon konusunda size nasıl destek olabilirim?', time: '16:45' },
+                    { type: 'user', text: 'Son zamanlarda hiçbir şey yapmak istemiyorum. Motivasyonum çok düştü.', time: '16:47' },
+                    { type: 'ai', text: 'Bu duygu çok anlaşılır ve normal. Motivasyon kaybı yaşamak insani bir deneyim. Önemli olan bunu geçici olarak görmek ve küçük adımlarla başlamak.<br><br>Size birkaç soru sorabilir miyim?<br>- Bu durum ne kadar süredir devam ediyor?<br>- Daha önce sizi motive eden neydi?<br>- Şu anda en çok hangi alanda motivasyon eksikliği yaşıyorsunuz?', time: '16:48' },
+                    { type: 'user', text: 'Yaklaşık 2 haftadır böyleyim. Daha önce spor yapmayı, kitap okumayı seviyordum. Şimdi işten gelince sadece televizyon izliyorum.', time: '16:50' },
+                    { type: 'ai', text: 'Anlıyorum. 2 hafta kısa bir süre, bu da umut verici. Motivasyon kasımız gibidir - kullanmadığımızda zayıflar ama yeniden güçlendirilebilir.<br><br>Küçük adımlarla başlayalım:<br>📚 Günde 5 sayfa okumak<br>🚶‍♀️ 10 dakika yürüyüş<br>🎯 Bir küçük hedef belirlemek<br><br>Hangisi daha kolay geldi? Zorlamayalım kendimizi, küçük başlayalım.', time: '16:51' },
+                    { type: 'user', text: '10 dakika yürüyüş yapabilirim galiba. Ama nereden başlayacağım?', time: '16:53' },
+                    { type: 'ai', text: 'Harika! Bu mükemmel bir başlangıç. İşte planınız:<br><br>🕐 Bugün: Sadece spor ayakkabılarınızı giyin<br>🕑 Yarın: Dışarı çıkıp 5 dakika yürüyün<br>🕒 Öbür gün: 10 dakika yürüyün<br>🕓 Sonraki gün: Yine 10 dakika<br><br>Küçük başarılar büyük motivasyon yaratır. Her adımda kendinizi tebrik edin. Başarabileceğinize inanıyorum! 💪', time: '16:54' }
+                ]
+            },
+            relationships: {
+                title: "İlişki Sorunları",
+                messages: [
+                    { type: 'ai', text: 'Merhaba! İlişkiler konusunda size nasıl destek olabilirim?', time: '19:30' },
+                    { type: 'user', text: 'Arkadaşlarımla sorun yaşıyorum. Sürekli tartışıyoruz ve artık onlarla vakit geçirmek istemiyorum.', time: '19:32' },
+                    { type: 'ai', text: 'İlişkilerde yaşanan zorluklar gerçekten yıpratıcı olabilir. Bu durumu daha iyi anlayabilmek için birkaç şey sormak istiyorum:<br><br>- Tartışmalar genellikle hangi konularda oluyor?<br>- Bu durum ne kadar süredir devam ediyor?<br>- Arkadaşlarınızla olan bu ilişkiler sizin için değerli mi?', time: '19:33' },
+                    { type: 'user', text: 'Genellikle küçük şeyler büyüyor. Biri bir şey söylüyor, diğeri alınıyor. Bu durum birkaç aydır böyle. Aslında onları seviyorum ama bu durumdan bıktım.', time: '19:35' },
+                    { type: 'ai', text: 'Anlıyorum. Küçük şeylerin büyümesi genellikle altında yatan daha derin sorunlar olduğunu gösterir. İlişkiler değerliyse onarmaya değer.<br><br>Deneyebileceğiniz yaklaşımlar:<br>💬 Açık ve sakin bir konuşma başlatmak<br>🔍 Kendi rolünüzü de sorgulamak<br>🤝 Ortak çözüm arayışında olmak<br>⏰ Zaman ayırıp kaliteli vakit geçirmek<br><br>Hangi yaklaşım size daha uygun geldi?', time: '19:36' },
+                    { type: 'user', text: 'Açık konuşma iyi olabilir ama nasıl başlatacağım? Onlar da benim kadar sıkıntılı olabilirler.', time: '19:38' },
+                    { type: 'ai', text: 'Harika bir fark ettiniz! Onlar da aynı sıkıntıyı yaşıyor olabilir. İşte nazik bir başlangıç:<br><br>"Arkadaşlar, son zamanlarda aramızda gerginlik olduğunu fark ediyorum. Sizin için de zor olmuş olabilir. Bu durumu konuşup çözebilir miyiz?" <br><br>Anahtar noktalar:<br>✅ Suçlayıcı olmayan dil<br>✅ Ortak sorun olarak görme<br>✅ Çözüm odaklı yaklaşım<br>✅ Samimi ve açık olma<br><br>Bu yaklaşım nasıl geliyor size?', time: '19:39' },
+                    { type: 'user', text: 'Bu gerçekten iyi bir yaklaşım. Yarın onlarla konuşmayı deneyeceğim. Teşekkürler Neva!', time: '19:41' },
+                    { type: 'ai', text: 'Rica ederim! Cesaret gösterdiğiniz için sizi kutluyorum. İyi ilişkiler çaba gerektirir ama değer. Yarın nasıl geçtiğini de konuşabiliriz. Başarılar! 🤝💙', time: '19:42' }
+                ]
+            },
+            selfcare: {
+                title: "Öz Bakım",
+                messages: [
+                    { type: 'ai', text: 'Merhaba! Öz bakım konusunda size nasıl yardımcı olabilirim?', time: '11:20' },
+                    { type: 'user', text: 'Hep başkalarına yardım ediyorum ama kendime hiç zaman ayıramıyorum. Nasıl kendime daha iyi bakabilirim?', time: '11:22' },
+                    { type: 'ai', text: 'Bu çok önemli bir fark etme! Başkalarına yardım etmek güzel ama kendi ihtiyaçlarınızı ihmal etmek uzun vadede hem size hem de sevdiklerinize zarar verir. Öz bakım bencillik değil, gereklilik.<br><br>Önce şunu soralım: Kendinize zaman ayırmaktan neden çekiniyorsunuz?', time: '11:23' },
+                    { type: 'user', text: 'Sanki bencillik yapıyormuşum gibi hissediyorum. Başkaları bana ihtiyaç duyduğunda "hayır" diyemiyorum.', time: '11:25' },
+                    { type: 'ai', text: 'Bu çok yaygın bir duygu. Ama şunu düşünün: Uçaklarda önce kendi oksijen maskenizi takıp sonra başkalarına yardım etmeniz söylenir. Neden? Çünkü kendiniz güçlü değilseniz başkalarına yardım edemezsiniz.<br><br>Öz bakım stratejileri:<br>🛡️ Sınır koymayı öğrenmek<br>💆‍♀️ Günlük 15 dakika "ben zamanı"<br>📝 İhtiyaçlarınızı yazmak<br>🤝 "Hayır" demeyi pratik etmek<br><br>Hangi alanda başlamak istersiniz?', time: '11:26' },
+                    { type: 'user', text: 'Günlük 15 dakika ben zamanı iyi geldi. Neler yapabilirim?', time: '11:28' },
+                    { type: 'ai', text: 'Harika seçim! İşte 15 dakikalık öz bakım fikirleri:<br><br>🛁 Sıcak duş/banyo<br>☕ Sevdiğiniz çayı içerken derin nefes almak<br>📖 Birkaç sayfa kitap okumak<br>🎵 Müzik dinleyip dans etmek<br>🧘‍♀️ Meditasyon/nefes egzersizi<br>🌸 Cilt bakımı yapmak<br>📱 Telefondan uzak durarak sessizlik<br><br>Hangisi size daha çekici geldi? Unutmayın, bu sizin hakkınız!', time: '11:29' },
+                    { type: 'user', text: 'Çay içerken derin nefes almak güzel geldi. Basit ama etkili olabilir.', time: '11:31' },
+                    { type: 'ai', text: 'Mükemmel seçim! Basit olan şeyler genellikle en sürdürülebilir olanlardır. İşte küçük ritüeliniz:<br><br>☕ Çayınızı hazırlarken o ana odaklanın<br>🌬️ İlk yudumdan önce derin nefes alın<br>🧘‍♀️ Çayın sıcaklığını, tadını hissedin<br>💭 Bu 15 dakika sadece SİZE ait<br><br>Bu küçük ritüel, zihninizdeki gürültüyü azaltacak ve size değer verdiğinizi hatırlatacak. Bugün deneyebilir misiniz? 🫖💙', time: '11:32' }
+                ]
+            }
+        };
+
+        // Load chat conversation
+        function loadChat(chatId, event) {
+            const conversation = chatConversations[chatId];
+            if (!conversation) return;
+
+            // Update active chat item
+            document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            // Load messages
+            const messagesContainer = document.getElementById('chatMessages');
+            if (!messagesContainer) return;
+
+            messagesContainer.innerHTML = '';
+
+            conversation.messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.type}`;
+                messageDiv.innerHTML = `
+                    <div>${msg.text}</div>
+                    <div class="message-time">${msg.time}</div>
+                `;
+                messagesContainer.appendChild(messageDiv);
+            });
+
+            // Scroll to bottom (hafif gecikme ile)
+            setTimeout(() => {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 50);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messagesContainer = document.getElementById('chatMessages');
+            const userMsg = {
+                type: 'user',
+                text: text,
+                time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            // Basit şekilde ekle (gerçek AI yanıtı buraya entegre edilebilir)
+            const userDiv = document.createElement('div');
+            userDiv.className = `message user`;
+            userDiv.innerHTML = `
+                <div>${userMsg.text}</div>
+                <div class="message-time">${userMsg.time}</div>
+            `;
+            messagesContainer.appendChild(userDiv);
+
+            // Otomatik scroll
+            setTimeout(() => {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 50);
+
+            input.value = '';
+        }
+
+        // Initialize everything safely
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                loadChat('anxiety');
+
+                const messageInput = document.getElementById('messageInput');
+                if (messageInput) {
+                    messageInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            sendMessage();
+                        }
+                    });
+                }
+
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && entry.target.classList) {
+                            entry.target.classList.add('fade-in');
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    observer.observe(el);
+                });
+
+            } catch (error) {
+                console.log('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
