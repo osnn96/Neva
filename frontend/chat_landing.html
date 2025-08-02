@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neva - Sohbet Başlat</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="image/favicon.png" type="image/png">
+    <link rel="stylesheet" href="chat_landing.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container" onclick="window.location.href='index.html'">
+                <img src="image/nevalogo.png" alt="Neva Logo" class="logo-image">
+                <span class="logo-text">NEVA</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="chat_landing.html" class="active">Sohbet</a></li>
+                <li><a href="index.html#features">Özellikler</a></li>
+                <li><a href="index.html#about">Hakkında</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <a href="girisyap.html" class="nav-login">Giriş Yap</a>
+                <a href="kayitol.html" class="nav-cta">Kayıt Ol</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-landing">
+        <div class="floating-elements">
+            <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-element" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+            <div class="floating-element" style="top: 40%; right: 15%; animation-delay: 4s;"></div>
+            <div class="floating-element" style="top: 80%; right: 25%; animation-delay: 1s;"></div>
+            <div class="floating-element" style="left: 53%; top: 46%; animation-delay: 0.3s;"></div>
+            <div class="floating-element" style="left: 88%; top: 0%; animation-delay: 0.5s;"></div>
+            <div class="floating-element" style="left: 68%; top: 59%; animation-delay: 1.6s;"></div>
+            <div class="floating-element" style="left: 20%; top: 37%; animation-delay: 4.7s;"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🤖</span> Yapay Zeka Destekli Psikolojik Destek
+            </div>
+            
+            <h1 class="hero-title">
+                Neva ile Sohbete<br>Başlayın
+            </h1>
+            
+            <p class="hero-subtitle">
+                Zihinsel sağlığınız için 7/24 yanınızda olan empati odaklı AI asistanınız. 
+                Güvenli bir ortamda konuşun, destek alın ve kendinizi daha iyi hissedin.
+            </p>
+            
+            <div class="cta-container">
+                <div>
+                    <button class="primary-cta" onclick="window.location.href='chat_sesli.html'">
+                        <span>🎤</span> Sesli Sohbet Başlat
+                    </button>
+                    <button class="primary-cta ml" onclick="window.location.href='chat_yazili.html'">
+                        <span>💬</span> Yazılı Sohbet Başlat
+                    </button>
+                </div>
+                <a href="index.html#features" class="secondary-cta">
+                    Nasıl çalıştığını öğrenin →
+                </a>
+            </div>
+            
+            <div class="features-preview">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Güvenli</div>
+                    <div class="feature-desc">Tüm konuşmalarınız şifrelenmiş ve gizli</div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Anında</div>
+                    <div class="feature-desc">7/24 hızlı ve empati odaklı yanıtlar</div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Kişisel</div>
+                    <div class="feature-desc">Size özel çözümler ve öneriler</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Dinamik floating elementler ekle
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            const colors = ['#00f5ff', '#0080ff', '#ffffff'];
+            
+            for (let i = 0; i < 8; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 5 + 's';
+                element.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(element);
+            }
+        }
+
+        // Sayfa yüklendiğinde elementleri ekle
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingElements();
+        });
+
+        // Scroll animasyonları için intersection observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Tüm animasyonlu elementleri gözlemle
+        document.querySelectorAll('[style*="animation"]').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
