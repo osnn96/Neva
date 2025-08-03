@@ -145,13 +145,13 @@
 }
 
 .logo-image {
-    width: 50px;
+    width: 40px;
     height: auto;
     margin: 0;
 }
 
 .logo-text {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, #00f5ff, #0080ff);
     -webkit-background-clip: text;
@@ -160,5 +160,157 @@
     font-family: 'Dancing Script', cursive;
     margin: 0; 
     padding: 0; 
+}
+
+/* YENİ CHAT MENU STİLLERİ */
+
+/* Ana İçerik Yeniden Tasarım */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    flex-direction: column;
+    padding: 2rem;
+    margin-top: 80px;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-align: center;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Chat Category Stilleri */
+.chat-category {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.category-title {
+    font-size: 1.5rem;
+    color: #00f5ff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Option Box Yeniden Tasarım */
+.option-box {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-box.friend-mode {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(0, 128, 255, 0.1));
+    border-color: rgba(0, 245, 255, 0.3);
+}
+
+.option-box.friend-mode:hover {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(0, 128, 255, 0.2));
+    border-color: #00f5ff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 245, 255, 0.3);
+}
+
+.option-box.psych-mode {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(204, 68, 68, 0.1));
+    border-color: rgba(255, 107, 107, 0.3);
+}
+
+.option-box.psych-mode:hover {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(204, 68, 68, 0.2));
+    border-color: #ff6b6b;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+}
+
+.option-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.option-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.option-desc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
+}
+
+/* Chat Badge (Mevcut konuşma işareti) */
+.chat-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 245, 255, 0.9);
+    color: #000;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.option-box.has-chat {
+    border-color: #00f5ff !important;
+}
+
+.option-box.has-chat.psych-mode {
+    border-color: #ff6b6b !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
 }
 

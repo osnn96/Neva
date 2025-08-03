@@ -522,13 +522,13 @@
 }
 
 .logo-image {
-    width: 50px;
+    width: 40px;
     height: auto;
     margin: 0;
 }
 
 .logo-text {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, #00f5ff, #0080ff);
     -webkit-background-clip: text;

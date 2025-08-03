@@ -20,16 +20,16 @@
     <!-- Navbar Bölümü -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container" onclick="showPage('home')">
+            <div class="logo-container">
                 <img src="image/nevalogo.png" alt="Neva logo" class="logo-image">
                 <span class="logo-text">NEVA</span>
             </div>
             
             <ul class="nav-menu">
-                <li><a href="index.html" onclick="showPage('home')" class="active">Ana Sayfa</a></li>
-                <li><a href="chat_menu.html" onclick="showPage('chat'); loadChat('envie')">Sohbet</a></li>
-                <li><a href="index.html" onclick="showPage('foturus')">Özellikler</a></li>
-                <li><a href="index.html" onclick="showPage('about')">Hakkında</a></li>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="chat_menu.html" class="active">Sohbet</a></li>
+                <li><a href="features.html">Özellikler</a></li>
+                <li><a href="index.html#about">Hakkında</a></li>
             </ul>
             
             <div class="auth-button">
@@ -44,28 +44,101 @@
     
     <!-- Ana İçerik Bölümü -->
     <div class="main-content">
-        <h1 class="page-title">Sohbet Seçenekleri</h1>
+        <h1 class="page-title">Neva ile Sohbet</h1>
+        <p class="page-subtitle">Sohbet tipinizi ve mod tercihini seçin</p>
         
         <div class="options-container">
-            <div class="option-box" onclick="window.location.href='chat_sesli.html'">
-                Sesli Sohbet
+            <!-- Yazılı Sohbet Seçenekleri -->
+            <div class="chat-category">
+                <h2 class="category-title">📝 Yazılı Sohbet</h2>
+                <div class="options-grid">
+                    <div class="option-box friend-mode" onclick="startChat('text', 'friend')">
+                        <div class="option-icon">🤝</div>
+                        <div class="option-title">Arkadaş Modu</div>
+                        <div class="option-desc">Günlük sohbet, eğlence ve genel konular</div>
+                    </div>
+                    <div class="option-box psych-mode" onclick="startChat('text', 'psych')">
+                        <div class="option-icon">🧠</div>
+                        <div class="option-title">Psikolojik Destek</div>
+                        <div class="option-desc">Duygusal destek ve psikolojik danışmanlık</div>
+                    </div>
+                </div>
             </div>
-            <div class="option-box" onclick="window.location.href='chat_yazili.html'">
-                Yazılı Sohbet
+
+            <!-- Sesli Sohbet Seçenekleri -->
+            <div class="chat-category">
+                <h2 class="category-title">🎤 Sesli Sohbet</h2>
+                <div class="options-grid">
+                    <div class="option-box friend-mode" onclick="startChat('voice', 'friend')">
+                        <div class="option-icon">🤝</div>
+                        <div class="option-title">Arkadaş Modu</div>
+                        <div class="option-desc">Sesli sohbet, hikaye anlatımı</div>
+                    </div>
+                    <div class="option-box psych-mode" onclick="startChat('voice', 'psych')">
+                        <div class="option-icon">🧠</div>
+                        <div class="option-title">Psikolojik Destek</div>
+                        <div class="option-desc">Sesli terapi seansları ve duygusal destek</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function showPage(page) {
-            // Sayfa değiştirme fonksiyonu
-            console.log(page + " sayfası gösteriliyor");
-            // Burada gerçek sayfa değiştirme mantığını ekleyebilirsiniz
+        function startChat(type, mode) {
+            console.log(`🚀 Chat başlatılıyor: ${type} + ${mode}`);
+            
+            // Seçilen kombinasyonu localStorage'e kaydet
+            localStorage.setItem('selectedChatType', type);
+            localStorage.setItem('selectedChatMode', mode);
+            
+            // Uygun chat sayfasına yönlendir
+            if (type === 'text') {
+                window.location.href = 'chat_yazili.html';
+            } else if (type === 'voice') {
+                window.location.href = 'chat_sesli.html';
+            }
         }
         
-        function loadChat(type) {
-            // Sohbet yükleme fonksiyonu
-            console.log(type + " sohbeti yükleniyor");
+        // Sayfa yüklendiğinde mevcut chat durumunu kontrol et
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Chat menu yüklendi');
+            
+            // Mevcut chat kombinasyonlarını kontrol et
+            checkExistingChats();
+        });
+        
+        function checkExistingChats() {
+            // LocalStorage'dan mevcut chat geçmişlerini kontrol et
+            const chatHistory = {
+                'text-friend': localStorage.getItem('chatHistory-text-friend'),
+                'text-psych': localStorage.getItem('chatHistory-text-psych'),
+                'voice-friend': localStorage.getItem('chatHistory-voice-friend'),
+                'voice-psych': localStorage.getItem('chatHistory-voice-psych')
+            };
+            
+            // Mevcut konuşmaları görsel olarak işaretle
+            Object.keys(chatHistory).forEach(key => {
+                if (chatHistory[key]) {
+                    const [type, mode] = key.split('-');
+                    markExistingChat(type, mode);
+                }
+            });
+        }
+        
+        function markExistingChat(type, mode) {
+            // Mevcut konuşma olan kutulara badge ekle
+            const selector = `[onclick="startChat('${type}', '${mode}')"]`;
+            const optionBox = document.querySelector(selector);
+            
+            if (optionBox && !optionBox.querySelector('.chat-badge')) {
+                const badge = document.createElement('div');
+                badge.className = 'chat-badge';
+                badge.textContent = '💬';
+                badge.title = 'Devam eden konuşma var';
+                optionBox.appendChild(badge);
+                optionBox.classList.add('has-chat');
+            }
         }
     </script>
 

@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Neva - Sohbet</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -50,6 +53,50 @@
             margin-top: 2px;
         }
 
+        /* Chat Mode Display Stilleri */
+        .chat-mode-display {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .current-mode {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .mode-icon {
+            font-size: 1.2rem;
+        }
+        
+        .mode-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .change-mode-btn {
+            padding: 0.4rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .change-mode-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
         .chat-messages {
             flex: 1;
             padding: 1rem;
@@ -72,6 +119,15 @@
         .message.user {
             align-self: flex-end;
         }
+        
+        /* System mesajları için stil */
+        .message.system {
+            align-self: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 60%;
+        }
+        
         .message-time {
             font-size: 0.6rem;
             margin-top: 4px;
@@ -91,6 +147,22 @@
             border: none;
             outline: none;
             font-size: 1rem;
+        }
+
+        .chat-send {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .chat-send:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
         }
        
 
@@ -131,15 +203,15 @@
     <!-- Nav -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container" onclick="window.location.href='index.html'">
+            <div class="logo-container">
                 <img src="image/nevalogo.png" alt="Neva Logo" class="logo-image">
                 <span class="logo-text">NEVA</span>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="chat_menu.html" class="active">Sohbet</a></li>
-                <li><a href="index.html">Özellikler</a></li>
-                <li><a href="index.html">Hakkında</a></li>
+                <li><a href="features.html">Özellikler</a></li>
+                <li><a href="index.html#about">Hakkında</a></li>
             </ul>
 
             <div class="auth-buttons">
@@ -168,35 +240,15 @@
                 <div class="chat-sidebar">
                     <h3 style="margin-bottom: 1rem; color: #00f5ff;">Sohbet Geçmişi</h3>
                     <div class="chat-list">
-                        <div class="chat-item active" onclick="loadChat('anxiety', event)">
-                            <div class="chat-item-title">Kaygı Yönetimi</div>
-                            <div class="chat-item-preview">Bugün kendimi nasıl daha iyi hissedebilirim?</div>
-                            <div class="chat-item-date">2 saat önce</div>
+                        <div class="chat-item">
+                            <div class="chat-item-title">Yeni Sohbet</div>
+                            <div class="chat-item-preview">Neva ile yeni bir sohbet başlat</div>
+                            <div class="chat-item-date">Şimdi</div>
                         </div>
-                        <div class="chat-item" onclick="loadChat('sleep', event)">
-                            <div class="chat-item-title">Uyku Problemi</div>
-                            <div class="chat-item-preview">Geceleri uyuyamıyorum, ne yapmalıyım?</div>
-                            <div class="chat-item-date">Dün</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('stress', event)">
-                            <div class="chat-item-title">Stres Yönetimi</div>
-                            <div class="chat-item-preview">İş stresi ile nasıl başa çıkabilirim?</div>
-                            <div class="chat-item-date">3 gün önce</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('motivation', event)">
-                            <div class="chat-item-title">Motivasyon</div>
-                            <div class="chat-item-preview">Kendimi motive etmek için ipuçları</div>
-                            <div class="chat-item-date">1 hafta önce</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('relationships', event)">
-                            <div class="chat-item-title">İlişki Sorunları</div>
-                            <div class="chat-item-preview">Arkadaşlarımla olan problemler...</div>
-                            <div class="chat-item-date">1 hafta önce</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('selfcare', event)">
-                            <div class="chat-item-title">Öz Bakım</div>
-                            <div class="chat-item-preview">Kendime nasıl daha iyi bakabilirim?</div>
-                            <div class="chat-item-date">2 hafta önce</div>
+                        <div class="chat-item">
+                            <div class="chat-item-title">Önceki Sohbetler</div>
+                            <div class="chat-item-preview">Geçmiş sohbetleriniz burada görünecek</div>
+                            <div class="chat-item-date">Yakında</div>
                         </div>
                     </div>
                 </div>
@@ -206,7 +258,17 @@
                         <div class="chat-avatar">N</div>
                         <div class="chat-info">
                             <h3>Neva</h3>
-                            <div class="chat-status">• Çevrimiçi</div>
+                            <div class="chat-status" id="chatStatus">• Çevrimiçi</div>
+                            <div class="user-welcome" id="userWelcome" style="font-size: 0.75rem; opacity: 0.8; margin-top: 2px;"></div>
+                        </div>
+                        <div class="chat-mode-display" id="chatModeDisplay">
+                            <div class="current-mode">
+                                <span class="mode-icon" id="modeIcon">🤝</span>
+                                <span class="mode-text" id="modeText">Arkadaş Modu</span>
+                            </div>
+                            <button class="change-mode-btn" onclick="goBackToMenu()">
+                                <span>🔄</span> Mod Değiştir
+                            </button>
                         </div>
                     </div>
                     
@@ -214,10 +276,12 @@
                         <!-- Mesajlar buraya gelir -->
                     </div>
                     
-                    <div class="chat-input">
-                        <input type="text" placeholder="Mesajınızı yazın..." id="messageInput">
-                        <button class="chat-send" onclick="sendMessage()">Gönder</button>
-                    </div>
+                    <form id="chatForm" onsubmit="return false;">
+                        <div class="chat-input">
+                            <input type="text" placeholder="Mesajınızı yazın..." id="messageInput">
+                            <button type="button" class="chat-send" onclick="sendMessage()">Gönder</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -304,77 +368,253 @@
             }
         };
 
-        // Load chat conversation
-        function loadChat(chatId, event) {
-            const conversation = chatConversations[chatId];
-            if (!conversation) return;
-
-            // Update active chat item
-            document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
+        // Page Load ve Mode Display Güncellemeleri
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Chat Yazili sayfası yüklendi');
+            
+            // Mode display'i güncelle
+            updateChatModeDisplay();
+            
+            // Token kontrolü
+            checkAuthentication();
+        });
+        
+        function updateChatModeDisplay() {
+            const chatType = localStorage.getItem('selectedChatType');
+            const chatMode = localStorage.getItem('selectedChatMode');
+            
+            if (chatType && chatMode) {
+                const modeIcon = document.querySelector('.mode-icon');
+                const modeText = document.querySelector('.mode-text');
+                
+                if (chatMode === 'friend') {
+                    modeIcon.textContent = '👥';
+                    modeText.textContent = 'Arkadaş Modu';
+                } else if (chatMode === 'psychological') {
+                    modeIcon.textContent = '🧠';
+                    modeText.textContent = 'Psikolojik Destek';
+                }
+                
+                console.log(`Chat Mode Display Updated: ${chatType} - ${chatMode}`);
             }
+        }
+        
+        function goBackToMenu() {
+            // Chat menüsüne geri dön
+            window.location.href = 'chat_menu.html';
+        }
+        
+        function checkAuthentication() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('Lütfen önce giriş yapın.');
+                window.location.href = 'girisyap.html';
+                return false;
+            }
+            return true;
+        }
 
-            // Load messages
-            const messagesContainer = document.getElementById('chatMessages');
-            if (!messagesContainer) return;
 
-            messagesContainer.innerHTML = '';
 
-            conversation.messages.forEach(msg => {
+        // Mesaj ekleme helper fonksiyonu
+        function addMessageToChat(type, text) {
+            try {
+                console.log('addMessageToChat çağrıldı:', type, text.substring(0, 50) + '...');
+                const messagesContainer = document.getElementById('chatMessages');
+                if (!messagesContainer) {
+                    console.error('chatMessages container bulunamadı!');
+                    return null;
+                }
+                
                 const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${msg.type}`;
+                messageDiv.className = `message ${type}`;
+                
+                const time = new Date().toLocaleTimeString('tr-TR', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
                 messageDiv.innerHTML = `
-                    <div>${msg.text}</div>
-                    <div class="message-time">${msg.time}</div>
+                    <div>${text}</div>
+                    <div class="message-time">${time}</div>
                 `;
+                
                 messagesContainer.appendChild(messageDiv);
-            });
-
-            // Scroll to bottom (hafif gecikme ile)
-            setTimeout(() => {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 50);
+                console.log('Mesaj eklendi, toplam mesaj sayısı:', messagesContainer.children.length);
+                
+                // Scroll to bottom - güvenli şekilde
+                setTimeout(() => {
+                    try {
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        console.log('Scroll yapıldı');
+                    } catch (scrollError) {
+                        console.error('Scroll hatası:', scrollError);
+                    }
+                }, 50);
+                
+                return messageDiv; // Loading mesajı için geri döndür
+                
+            } catch (error) {
+                console.error('addMessageToChat hatası:', error);
+                return null;
+            }
         }
 
-        function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const messagesContainer = document.getElementById('chatMessages');
-            const userMsg = {
-                type: 'user',
-                text: text,
-                time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-            };
-
-            // Basit şekilde ekle (gerçek AI yanıtı buraya entegre edilebilir)
-            const userDiv = document.createElement('div');
-            userDiv.className = `message user`;
-            userDiv.innerHTML = `
-                <div>${userMsg.text}</div>
-                <div class="message-time">${userMsg.time}</div>
-            `;
-            messagesContainer.appendChild(userDiv);
-
-            // Otomatik scroll
-            setTimeout(() => {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 50);
-
-            input.value = '';
+        // Sayfa yüklendiğinde token kontrolü
+        function checkAuthOnLoad() {
+            const token = localStorage.getItem('authToken');
+            console.log('🔐 Token kontrolü:', token ? 'Token mevcut' : 'Token YOK');
+            if (!token) {
+                console.log('🚨 Token bulunamadı - giriş sayfasına yönlendiriliyor');
+                alert('Bu sayfaya erişim için giriş yapmalısınız.');
+                // GEÇICI OLARAK REDIRECT'İ DEVRE DIŞI BIRAKALIM
+                console.log('🚨 REDIRECT DEVRE DIŞI - Test için');
+                // window.location.href = 'girisyap.html';
+                return false;
+            }
+            return true;
         }
+
+        // Kullanıcı bilgisini göster
+        function showUserInfo() {
+            const userInfo = localStorage.getItem('userInfo');
+            const userWelcome = document.getElementById('userWelcome');
+            
+            if (userInfo && userWelcome) {
+                try {
+                    const user = JSON.parse(userInfo);
+                    userWelcome.textContent = `Hoş geldin, ${user.username || user.name || 'Kullanıcı'}!`;
+                } catch (e) {
+                    console.log('User info parse error:', e);
+                }
+            }
+        }
+
+        async function sendMessage() {
+            try {
+                console.log('🚀 sendMessage başladı');
+                const input = document.getElementById('messageInput');
+                const text = input.value.trim();
+                if (!text) return;
+
+                // Token kontrolü ekle
+                const token = localStorage.getItem('authToken');
+                console.log('🔍 Token durumu:', token ? `Token mevcut: ${token.substring(0, 20)}...` : 'TOKEN YOK!');
+                if (!token) {
+                    console.log('🚨 TOKEN BULUNAMADI - Giriş sayfasına yönlendiriliyor');
+                    alert('Lütfen giriş yapın!');
+                    window.location.href = 'girisyap.html';
+                    return;
+                }
+
+                // localStorage'dan seçili modu al
+                const selectedMode = localStorage.getItem('selectedChatMode') || 'friend';
+                console.log('🎯 Mesaj gönderilirken kullanılan mod:', selectedMode);
+
+                // Kullanıcı mesajını hemen göster
+                console.log('📝 Kullanıcı mesajı ekleniyor:', text);
+                addMessageToChat('user', text);
+                input.value = '';
+
+                // Loading mesajı göster
+                console.log('⏳ Loading mesajı ekleniyor...');
+                const loadingDiv = addMessageToChat('ai', 'Düşünüyorum... ⏳');
+
+                console.log('🌐 API çağrısı başlıyor...');
+                const response = await fetch('http://127.0.0.1:8000/chat/text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        message: text,
+                        mode: selectedMode
+                    })
+                });
+
+                // Loading mesajını kaldır
+                console.log('🗑️ Loading mesajı kaldırılıyor...');
+                if (loadingDiv) {
+                    loadingDiv.remove();
+                }
+
+                console.log('📊 Response status:', response.status);
+                
+                if (!response.ok) {
+                    console.log('❌ Response not OK:', response.status, response.statusText);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('📦 API cevabı alındı:', data);
+                
+                // AI cevabını göster
+                if (data.reply_text) {
+                    console.log('🤖 AI cevabı ekleniyor:', data.reply_text.substring(0, 50) + '...');
+                    addMessageToChat('ai', data.reply_text);
+                    console.log('✅ AI cevabı başarıyla eklendi');
+                } else {
+                    console.log('⚠️ reply_text bulunamadı, hata mesajı ekleniyor');
+                    addMessageToChat('ai', 'Üzgünüm, bir sorun oluştu. Lütfen tekrar deneyin.');
+                }
+                
+                console.log('🎉 sendMessage başarıyla tamamlandı - sayfa YENİLENMEMELİ!');
+                
+            } catch (error) {
+                console.error('💥 KRITIK HATA sendMessage\'da:', error);
+                console.error('💥 Error stack:', error.stack);
+                alert('Bir hata oluştu, sayfa yenilenecek!');
+            }
+        }
+
+        // Global error handler
+        window.addEventListener('error', function(e) {
+            console.error('🚨 GLOBAL JavaScript HATASI:', e.error);
+            console.error('Dosya:', e.filename, 'Satır:', e.lineno);
+        });
+
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('🚨 YAKALANMAYAN PROMISE HATASI:', e.reason);
+        });
 
         // Initialize everything safely
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔥 Sayfa yüklendi - DOMContentLoaded tetiklendi');
+            
+            // Sayfa yenilenme tespiti
+            window.addEventListener('beforeunload', function(e) {
+                console.log('⚠️ SAYFA YENİLENİYOR! beforeunload tetiklendi');
+            });
+            
+            // İlk önce token kontrolü yap
+            if (!checkAuthOnLoad()) {
+                return;
+            }
+            
+            // Kullanıcı bilgisini göster
+            showUserInfo();
+            
             try {
-                loadChat('anxiety');
+                // loadChat('anxiety'); // BU SATIRI KALDIRIN - Gerçek API kullanırken çağrılmamalı
 
                 const messageInput = document.getElementById('messageInput');
+                const chatForm = document.getElementById('chatForm');
+                
+                if (chatForm) {
+                    chatForm.addEventListener('submit', function(e) {
+                        console.log('📝 Form submit tetiklendi - engellenecek');
+                        e.preventDefault();
+                        sendMessage();
+                        return false;
+                    });
+                }
+                
                 if (messageInput) {
                     messageInput.addEventListener('keypress', function(e) {
                         if (e.key === 'Enter') {
+                            console.log('⌨️ Enter tuşu basıldı - engellenecek');
+                            e.preventDefault(); // Form submit'i engelle
                             sendMessage();
                         }
                     });
@@ -397,10 +637,33 @@
                     observer.observe(el);
                 });
 
+                // Sayfa yüklendiğinde karşılama mesajını ekle
+                console.log('🎯 Karşılama mesajı ekleniyor...');
+                addWelcomeMessage();
+
             } catch (error) {
                 console.log('Initialization error:', error);
             }
         });
+        
+        // Karşılama mesajı ekleme
+        function addWelcomeMessage() {
+            const chatType = localStorage.getItem('selectedChatType');
+            const chatMode = localStorage.getItem('selectedChatMode');
+            
+            let welcomeMessage = '';
+            
+            if (chatMode === 'friend') {
+                welcomeMessage = 'Merhaba! Ben Neva, yapay zeka destekli arkadaşın. Seninle sohbet etmeye hazırım! Bugün nasılsın? 😊';
+            } else if (chatMode === 'psychological') {
+                welcomeMessage = 'Merhaba! Ben Neva, yapay zeka destekli psikolojik destek asistanınız. Size nasıl yardımcı olabilirim? 🧠💙';
+            }
+            
+            if (welcomeMessage) {
+                addMessageToChat('ai', welcomeMessage);
+                console.log(`Welcome message added for mode: ${chatMode}`);
+            }
+        }
     </script>
 </body>
 </html>

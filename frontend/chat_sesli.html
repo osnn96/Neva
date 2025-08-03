@@ -50,6 +50,50 @@
             margin-top: 2px;
         }
 
+        /* Chat Mode Display Stilleri */
+        .chat-mode-display {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .current-mode {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .mode-icon {
+            font-size: 1.2rem;
+        }
+        
+        .mode-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .change-mode-btn {
+            padding: 0.4rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .change-mode-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
         .chat-messages {
             flex: 1;
             padding: 1rem;
@@ -72,6 +116,15 @@
         .message.user {
             align-self: flex-end;
         }
+        
+        /* System mesajları için stil */
+        .message.system {
+            align-self: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 60%;
+        }
+        
         .message-time {
             font-size: 0.6rem;
             margin-top: 4px;
@@ -91,6 +144,109 @@
             border: none;
             outline: none;
             font-size: 1rem;
+        }
+
+        /* Mikrofon butonu stilleri - SESLI CHAT İÇİN */
+        .mic-button {
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mic-button:hover {
+            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+            transform: scale(1.05);
+        }
+
+        .mic-button.recording {
+            background: linear-gradient(135deg, #ff3838, #c44569);
+            animation: pulse 1.5s infinite;
+        }
+
+        .mic-button.listening {
+            background: linear-gradient(135deg, #00d2d3, #54a0ff);
+            animation: listening 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 56, 56, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 56, 56, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 56, 56, 0); }
+        }
+
+        @keyframes listening {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .chat-send {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .chat-send:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+        }
+
+        /* TTS (Text-to-Speech) Button Styles */
+        .tts-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .tts-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .tts-button.speaking {
+            background: rgba(0, 255, 0, 0.3);
+            animation: speaking 1s infinite;
+        }
+
+        @keyframes speaking {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .message.ai {
+            position: relative;
+        }
+
+        .chat-send:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
         }
        
 
@@ -131,15 +287,15 @@
     <!-- Nav -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container" onclick="window.location.href='index.html'">
+            <div class="logo-container">
                 <img src="image/nevalogo.png" alt="Neva Logo" class="logo-image">
                 <span class="logo-text">NEVA</span>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="chat_menu.html" class="active">Sohbet</a></li>
-                <li><a href="index.html">Özellikler</a></li>
-                <li><a href="index.html">Hakkında</a></li>
+                <li><a href="features.html">Özellikler</a></li>
+                <li><a href="index.html#about">Hakkında</a></li>
             </ul>
 
             <div class="auth-buttons">
@@ -168,35 +324,15 @@
                 <div class="chat-sidebar">
                     <h3 style="margin-bottom: 1rem; color: #00f5ff;">Sohbet Geçmişi</h3>
                     <div class="chat-list">
-                        <div class="chat-item active" onclick="loadChat('anxiety', event)">
-                            <div class="chat-item-title">Kaygı Yönetimi</div>
-                            <div class="chat-item-preview">Bugün kendimi nasıl daha iyi hissedebilirim?</div>
-                            <div class="chat-item-date">2 saat önce</div>
+                        <div class="chat-item">
+                            <div class="chat-item-title">Yeni Sohbet</div>
+                            <div class="chat-item-preview">Neva ile yeni bir sohbet başlat</div>
+                            <div class="chat-item-date">Şimdi</div>
                         </div>
-                        <div class="chat-item" onclick="loadChat('sleep', event)">
-                            <div class="chat-item-title">Uyku Problemi</div>
-                            <div class="chat-item-preview">Geceleri uyuyamıyorum, ne yapmalıyım?</div>
-                            <div class="chat-item-date">Dün</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('stress', event)">
-                            <div class="chat-item-title">Stres Yönetimi</div>
-                            <div class="chat-item-preview">İş stresi ile nasıl başa çıkabilirim?</div>
-                            <div class="chat-item-date">3 gün önce</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('motivation', event)">
-                            <div class="chat-item-title">Motivasyon</div>
-                            <div class="chat-item-preview">Kendimi motive etmek için ipuçları</div>
-                            <div class="chat-item-date">1 hafta önce</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('relationships', event)">
-                            <div class="chat-item-title">İlişki Sorunları</div>
-                            <div class="chat-item-preview">Arkadaşlarımla olan problemler...</div>
-                            <div class="chat-item-date">1 hafta önce</div>
-                        </div>
-                        <div class="chat-item" onclick="loadChat('selfcare', event)">
-                            <div class="chat-item-title">Öz Bakım</div>
-                            <div class="chat-item-preview">Kendime nasıl daha iyi bakabilirim?</div>
-                            <div class="chat-item-date">2 hafta önce</div>
+                        <div class="chat-item">
+                            <div class="chat-item-title">Önceki Sohbetler</div>
+                            <div class="chat-item-preview">Geçmiş sohbetleriniz burada görünecek</div>
+                            <div class="chat-item-date">Yakında</div>
                         </div>
                     </div>
                 </div>
@@ -207,6 +343,16 @@
                         <div class="chat-info">
                             <h3>Neva</h3>
                             <div class="chat-status">• Çevrimiçi</div>
+                            <div class="user-welcome" id="userWelcome" style="font-size: 0.75rem; opacity: 0.8; margin-top: 2px;"></div>
+                        </div>
+                        <div class="chat-mode-display">
+                            <div class="current-mode">
+                                <span class="mode-icon" id="modeIcon">🤝</span>
+                                <span class="mode-text" id="modeText">Arkadaş Modu</span>
+                            </div>
+                            <button class="change-mode-btn" onclick="goBackToMenu()">
+                                <span>🔄</span> Mod Değiştir
+                            </button>
                         </div>
                     </div>
                     
@@ -214,16 +360,40 @@
                         <!-- Mesajlar buraya gelir -->
                     </div>
                     
-                    <div class="chat-input">
-                        <input type="text" placeholder="Mesajınızı yazın..." id="messageInput">
-                        <button class="chat-send" onclick="sendMessage()">Gönder</button>
-                    </div>
+                    <form id="chatForm" onsubmit="console.log('⚠️ SAYFA YENİLENMEMELİ - inline onsubmit engellendi!'); event.preventDefault(); event.stopPropagation(); return false;">
+                        <div class="chat-input">
+                            <input type="text" placeholder="Mikrofona basarak konuşun veya yazın..." id="messageInput">
+                            <button type="button" class="mic-button" id="micButton" onclick="toggleSpeechRecognition()">
+                                <span id="micIcon">🎤</span>
+                            </button>
+                            <button type="button" class="chat-send" onclick="sendMessage()">Gönder</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
+        // Global Web Speech API değişkenleri - SESLI CHAT İÇİN
+        let isListening = false;
+        let speechRecognition = null;
+        let speechSupported = false;
+        let finalTranscript = '';
+        let interimTranscript = '';
+        
+        // Fallback MediaRecorder (eski sistem)
+        let audioChunks = [];
+        let isRecording = false;
+        let recordingSupported = false;
+        let mediaRecorder = null;
+
+        // Global TTS (Text-to-Speech) değişkenleri
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isSpeaking = false;
+        let ttsSupported = false;
+
         // Sohbet data
         const chatConversations = {
             anxiety: {
@@ -306,6 +476,10 @@
 
         // Load chat conversation
         function loadChat(chatId, event) {
+
+            console.log('loadChat çağrıldı ama devre dışı:', chatId);
+            return;
+
             const conversation = chatConversations[chatId];
             if (!conversation) return;
 
@@ -337,44 +511,996 @@
             }, 50);
         }
 
-        function sendMessage() {
+        // Web Speech API Setup - MODERN SPEECH RECOGNITION
+        function initializeWebSpeechAPI() {
+            console.log('🎤 Web Speech API kontrol ediliyor...');
+            
+            // Browser support kontrolü
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                speechRecognition = new SpeechRecognition();
+                
+                // Ayarlar
+                speechRecognition.continuous = true;          // Sürekli dinle
+                speechRecognition.interimResults = true;      // Ara sonuçlar
+                speechRecognition.lang = 'tr-TR';            // Türkçe
+                speechRecognition.maxAlternatives = 1;        // En iyi sonuç
+                
+                console.log('✅ Web Speech API destekleniyor');
+                speechSupported = true;
+                
+                // Event listeners
+                speechRecognition.onstart = () => {
+                    console.log('🔴 Web Speech API dinleme başladı');
+                    isListening = true;
+                    updateMicrophoneButton('listening');
+                    
+                    const input = document.getElementById('messageInput');
+                    if (input) {
+                        input.placeholder = '🔴 Dinleniyor... (GERÇEK ZAMANLI)';
+                        input.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
+                    }
+                };
+                
+                speechRecognition.onresult = (event) => {
+                    finalTranscript = '';
+                    interimTranscript = '';
+                    
+                    // Sonuçları işle
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                            console.log('✅ Final sonuç:', transcript);
+                        } else {
+                            interimTranscript += transcript;
+                            console.log('⏳ Ara sonuç:', transcript);
+                        }
+                    }
+                    
+                    // UI'yi güncelle
+                    const input = document.getElementById('messageInput');
+                    if (input) {
+                        const displayText = finalTranscript + interimTranscript;
+                        input.value = displayText;
+                        
+                        // Placeholder güncelle
+                        if (finalTranscript) {
+                            input.placeholder = '✅ Anlayabildin! Tekrar tıkla = dur';
+                        } else if (interimTranscript) {
+                            input.placeholder = '⏳ Dinleniyor... ' + interimTranscript.substring(0, 30);
+                        }
+                    }
+                    
+                    // Final sonuç varsa otomatik gönder
+                    if (finalTranscript.trim()) {
+                        console.log('📤 Final transkript:', finalTranscript);
+                        setTimeout(() => {
+                            stopListening();
+                            sendMessage(); // Otomatik gönder
+                        }, 1000); // 1 saniye bekle
+                    }
+                };
+                
+                speechRecognition.onerror = (event) => {
+                    console.error('🚨 Web Speech API hatası:', event.error);
+                    
+                    let errorMessage = 'Ses tanıma hatası: ';
+                    switch(event.error) {
+                        case 'network':
+                            errorMessage += 'İnternet bağlantısı sorunu';
+                            break;
+                        case 'not-allowed':
+                            errorMessage += 'Mikrofon izni reddedildi';
+                            break;
+                        case 'no-speech':
+                            errorMessage += 'Ses algılanamadı';
+                            break;
+                        case 'audio-capture':
+                            errorMessage += 'Mikrofon sorunu';
+                            break;
+                        default:
+                            errorMessage += event.error;
+                    }
+                    
+                    addMessageToChat('system', '🎤 ' + errorMessage);
+                    stopListening();
+                };
+                
+                speechRecognition.onend = () => {
+                    console.log('⏹️ Web Speech API dinleme durdu');
+                    isListening = false;
+                    updateMicrophoneButton('idle');
+                    
+                    const input = document.getElementById('messageInput');
+                    if (input) {
+                        input.placeholder = 'Mikrofona basarak konuşun veya yazın...';
+                        input.style.backgroundColor = '';
+                    }
+                    
+                    // Eğer final transcript varsa ve henüz gönderilmediyse
+                    if (finalTranscript.trim() && !input.value) {
+                        input.value = finalTranscript;
+                    }
+                };
+                
+            } else {
+                console.log('❌ Web Speech API desteklenmiyor - MediaRecorder fallback');
+                speechSupported = false;
+                recordingSupported = MediaRecorder && navigator.mediaDevices;
+            }
+        }
+        
+        // MediaRecorder Setup - FALLBACK SİSTEM
+        function initializeMediaRecorder() {
+            console.log('🎤 Web Audio API MediaRecorder başlatılıyor...');
+            
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && 'AudioContext' in window) {
+                recordingSupported = true;
+                console.log('✅ Web Audio API destekleniyor');
+            } else {
+                console.log('❌ Web Audio API desteklenmiyor');
+                disableMicrophoneButton();
+            }
+        }
+
+        // WAV dosyası encode etme fonksiyonu
+        window.encodeWAV = function(samples, sampleRate = 44100) {
+            const buffer = new ArrayBuffer(44 + samples.length * 2);
+            const view = new DataView(buffer);
+            
+            // WAV header yazma
+            const writeString = (offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+            
+            writeString(0, 'RIFF');                         // ChunkID
+            view.setUint32(4, 36 + samples.length * 2, true); // ChunkSize
+            writeString(8, 'WAVE');                         // Format
+            writeString(12, 'fmt ');                        // Subchunk1ID
+            view.setUint32(16, 16, true);                   // Subchunk1Size
+            view.setUint16(20, 1, true);                    // AudioFormat
+            view.setUint16(22, 1, true);                    // NumChannels
+            view.setUint32(24, sampleRate, true);           // SampleRate
+            view.setUint32(28, sampleRate * 2, true);       // ByteRate
+            view.setUint16(32, 2, true);                    // BlockAlign
+            view.setUint16(34, 16, true);                   // BitsPerSample
+            writeString(36, 'data');                        // Subchunk2ID
+            view.setUint32(40, samples.length * 2, true);   // Subchunk2Size
+            
+            // PCM data yazma
+            let offset = 44;
+            for (let i = 0; i < samples.length; i++) {
+                const sample = Math.max(-1, Math.min(1, samples[i]));
+                view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+                offset += 2;
+            }
+            
+            return buffer;
+        }
+
+        // Web Speech API - Start Listening
+        window.startListening = function() {
+            if (!speechSupported) {
+                console.log('⚠️ Web Speech API desteklenmiyor, MediaRecorder fallback');
+                return startRecording(); // Fallback
+            }
+            
+            if (isListening) {
+                console.log('🔄 Zaten dinleniyor, durduruluyor...');
+                return stopListening();
+            }
+            
+            try {
+                console.log('🎤 Web Speech API ile dinleme başlatılıyor...');
+                finalTranscript = '';
+                interimTranscript = '';
+                
+                const input = document.getElementById('messageInput');
+                if (input) {
+                    input.value = ''; // Temizle
+                }
+                
+                speechRecognition.start();
+                
+            } catch (error) {
+                console.error('🚨 Web Speech API başlatma hatası:', error);
+                addMessageToChat('system', '🎤 Ses tanıma başlatılamadı: ' + error.message);
+            }
+        };
+        
+        // Web Speech API - Stop Listening  
+        window.stopListening = function() {
+            if (!speechSupported || !isListening) {
+                return;
+            }
+            
+            console.log('⏹️ Web Speech API dinleme durduruluyor...');
+            try {
+                speechRecognition.stop();
+            } catch (error) {
+                console.error('🚨 Dinleme durdurma hatası:', error);
+            }
+        };
+        
+        // FALLBACK: MediaRecorder Functions
+        window.startRecording = function() {
+            if (!recordingSupported) {
+                showManualRecordingOption();
+                return;
+            }
+
+            console.log('🎙️ Akıllı format seçimi ile ses kaydı başlatılıyor...');
+            
+            navigator.mediaDevices.getUserMedia({ 
+                audio: {
+                    sampleRate: 44100,          // 16000 → 44100 (CD kalitesi)
+                    channelCount: 1,
+                    echoCancellation: true,
+                    noiseSuppression: true,
+                    autoGainControl: true,      // Yeni: Otomatik gain control
+                    latency: 0.02              // Düşük latency için
+                } 
+            })
+                .then(stream => {
+                    console.log('✅ Mikrofon izni alındı');
+                    
+                    // Format öncelik sırası: WAV (FFmpeg gerekmez) → WebM/OGG (FFmpeg gerekir)
+                    const formatPriority = [
+                        { mime: 'audio/wav', name: 'WAV', needsFFmpeg: false },
+                        { mime: 'audio/wave', name: 'WAV', needsFFmpeg: false },
+                        { mime: 'audio/webm;codecs=opus', name: 'WebM', needsFFmpeg: true },
+                        { mime: 'audio/webm', name: 'WebM', needsFFmpeg: true },
+                        { mime: 'audio/ogg;codecs=opus', name: 'OGG', needsFFmpeg: true },
+                        { mime: 'audio/ogg', name: 'OGG', needsFFmpeg: true }
+                    ];
+                    
+                    let selectedFormat = null;
+                    for (const format of formatPriority) {
+                        if (MediaRecorder.isTypeSupported(format.mime)) {
+                            selectedFormat = format;
+                            console.log(`✅ Desteklenen format bulundu: ${format.mime} (${format.name})`);
+                            break;
+                        }
+                    }
+                    
+                    if (!selectedFormat) {
+                        console.error('❌ Hiçbir ses formatı desteklenmiyor');
+                        addMessageToChat('system', '⚠️ Tarayıcınız ses kaydını desteklemiyor. Chrome veya Firefox güncelleyin.');
+                        showManualRecordingOption();
+                        return;
+                    }
+                    
+                    // Format bilgisini logla
+                    const ffmpegStatus = selectedFormat.needsFFmpeg ? 'FFmpeg gerekir' : 'FFmpeg gerekmez';
+                    console.log(`🎵 Seçilen format: ${selectedFormat.name} (${ffmpegStatus})`);
+                    
+                    // Kullanıcıya format bilgisi ver
+                    if (selectedFormat.needsFFmpeg) {
+                        console.log('ℹ️ WebM/OGG formatı - Backend FFmpeg ile WAV\'ye çevirecek');
+                    } else {
+                        console.log('ℹ️ WAV formatı - Direkt işlenecek');
+                    }
+                    
+                    const options = {
+                        mimeType: selectedFormat.mime,
+                        audioBitsPerSecond: 128000  // 16000 → 128000 (8x artış)
+                    };
+                    
+                    mediaRecorder = new MediaRecorder(stream, options);
+                    audioChunks = [];
+                    
+                    // Event handlers
+                    mediaRecorder.ondataavailable = event => {
+                        if (event.data.size > 0) {
+                            audioChunks.push(event.data);
+                            console.log(`🎵 ${selectedFormat.name} verisi alındı:`, event.data.size, 'bytes');
+                        }
+                    };
+                    
+                    mediaRecorder.onstop = () => {
+                        console.log(`⏹️ ${selectedFormat.name} kaydı durdu`);
+                        
+                        const audioBlob = new Blob(audioChunks, { type: selectedFormat.mime });
+                        console.log(`🎵 ${selectedFormat.name} blob oluşturuldu:`, audioBlob.size, 'bytes, Type:', audioBlob.type);
+                        
+                        handleRecordedAudio(audioBlob);
+                        
+                        stream.getTracks().forEach(track => track.stop());
+                        isRecording = false;
+                        updateMicrophoneButton('idle');
+                    };
+                    
+                    mediaRecorder.onerror = error => {
+                        console.error('🚨 MediaRecorder hatası:', error);
+                        addMessageToChat('system', '🎤 Ses kaydında hata oluştu. Lütfen tekrar deneyin.');
+                        isRecording = false;
+                        updateMicrophoneButton('idle');
+                    };
+                    
+                    // Kaydı başlat
+                    mediaRecorder.start();
+                    isRecording = true;
+                    updateMicrophoneButton('recording');
+                    
+                    console.log(`🔴 ${selectedFormat.name} formatında ses kaydı başladı`);
+                    
+                    // UI güncellemesi - format bilgisiyle
+                    const input = document.getElementById('messageInput');
+                    if (input) {
+                        input.placeholder = `🔴 YÜKSEK KALİTE ${selectedFormat.name} kaydediliyor... TEKRAR TIKLA = DURDUR (Max 30sn)`;
+                        input.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
+                    }
+                    
+                    // Auto-stop timer
+                    setTimeout(() => {
+                        if (isRecording && mediaRecorder && mediaRecorder.state === 'recording') {
+                            console.log('⏰ 30 saniye doldu, kayıt otomatik durduruluyor');
+                            mediaRecorder.stop();
+                        }
+                    }, 30000);  // 10000 → 30000 (30 saniye)
+                })
+                .catch(error => {
+                    console.error('❌ Mikrofon erişimi reddedildi:', error);
+                    addMessageToChat('system', '🎤 Mikrofon erişimi reddedildi. Tarayıcı ayarlarından mikrofon iznini kontrol edin.');
+                    showManualRecordingOption();
+                });
+        };
+                    
+        window.stopRecording = function() {
+            if (!isRecording || !mediaRecorder) return;
+            
+            console.log('⏹️ Ses kaydı durduruluyor...');
+            
+            if (mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+            
+            // UI güncelle
+            const input = document.getElementById('messageInput');
+            if (input) {
+                input.placeholder = 'Mikrofona basarak konuşun veya yazın...';
+                input.style.backgroundColor = '';
+            }
+        };
+
+        window.handleRecordedAudio = function(audioBlob) {
+            console.log('🎵 Kaydedilen ses işleniyor:', audioBlob.size, 'bytes');
+            
+            // Input'ı güncelle - transkripsiyon durumu
+            const input = document.getElementById('messageInput');
+            input.placeholder = '🔄 Ses metne çevriliyor... Lütfen bekleyin';
+            input.style.backgroundColor = 'rgba(54, 162, 235, 0.1)';
+            
+            // Backend transkripsiyon başlat
+            transcribeAudioBlob(audioBlob);
+        }
+
+        window.transcribeAudioBlob = async function(audioBlob, retryCount = 0) {
+            console.log(`🔄 Backend transkripsiyon başlıyor... (Deneme: ${retryCount + 1})`);
+            
+            const input = document.getElementById('messageInput');
+            input.placeholder = 'Ses metne çevriliyor...';
+            input.style.backgroundColor = 'rgba(54, 162, 235, 0.1)';
+            
+            try {
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.wav');
+                
+                const token = localStorage.getItem('authToken');
+                console.log('🌐 Transkripsiyon API çağrısı yapılıyor...');
+                
+                // Timeout ile istek gönder (max 30 saniye)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000);
+                
+                const response = await fetch('http://127.0.0.1:8000/transcribe', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData,
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                console.log('📊 Transcription response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('📦 Transcription API cevabı:', data);
+                    
+                    input.placeholder = 'Mikrofona basarak konuşun veya yazın...';
+                    input.style.backgroundColor = '';
+                    
+                    if (data.success && data.transcript && data.transcript.trim()) {
+                        console.log('✅ Backend transkripsiyon başarılı:', data.transcript);
+                        
+                        // Başarılı transcript'i input'a yaz
+                        input.value = data.transcript;
+                        
+                        // Auto-send transkript edilen metni
+                        setTimeout(() => {
+                            sendMessage();
+                        }, 500);
+                        
+                    } else {
+                        console.log('⚠️ Transkripsiyon başarısız:', data.transcript || 'Bilinmeyen hata');
+                        
+                        // Hata durumunda fallback
+                        const sizeKB = Math.round(audioBlob.size / 1024);
+                        const errorMsg = data.transcript || 'Transkripsiyon hatası';
+                        input.value = `🎤 Ses kaydedildi (${sizeKB} KB) - ${errorMsg}`;
+                        
+                        setTimeout(() => {
+                            sendMessage();
+                        }, 500);
+                    }
+                    
+                } else if (response.status === 404) {
+                    throw new Error('Transkripsiyon servisi bulunamadı (404)');
+                } else if (response.status === 500) {
+                    const errorText = await response.text();
+                    throw new Error(`Sunucu hatası (500): ${errorText}`);
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`API hatası (${response.status}): ${errorText}`);
+                }
+                
+            } catch (error) {
+                console.error(`🚨 Backend transkripsiyon hatası (Deneme ${retryCount + 1}):`, error);
+                
+                // Retry logic - maksimum 2 deneme
+                if (retryCount < 1 && !error.name?.includes('AbortError')) {
+                    console.log('🔄 Tekrar deneniyor...');
+                    
+                    // Input'ı güncelle - retry durumu
+                    input.placeholder = `🔄 Yeniden deneniyor... (${retryCount + 2}/2)`;
+                    
+                    setTimeout(() => {
+                        transcribeAudioBlob(audioBlob, retryCount + 1);
+                    }, 1000);
+                    return;
+                }
+                
+                // Maksimum deneme sayısına ulaşıldı - fallback
+                console.log('❌ Transkripsiyon başarısız, fallback kullanılıyor');
+                
+                const sizeKB = Math.round(audioBlob.size / 1024);
+                let errorType = 'Bilinmeyen hata';
+                
+                if (error.name?.includes('AbortError')) {
+                    errorType = 'Zaman aşımı';
+                } else if (error.message.includes('404')) {
+                    errorType = 'Servis bulunamadı';
+                } else if (error.message.includes('500')) {
+                    errorType = 'Sunucu hatası';
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorType = 'Bağlantı hatası';
+                }
+                
+                input.value = `🎤 Ses kaydedildi (${sizeKB} KB) - Transkripsiyon başarısız: ${errorType}`;
+                input.placeholder = 'Mikrofona basarak konuşun veya yazın...';
+                input.style.backgroundColor = '';
+                
+                setTimeout(() => {
+                    sendMessage();
+                }, 500);
+                
+                // Kullanıcıya bilgi ver
+                if (retryCount === 0) {
+                    addMessageToChat('system', `⚠️ Ses metne çevrilemedi (${errorType}). Ses dosyası olarak gönderildi. Backend servisini kontrol edin.`);
+                }
+            }
+        }
+
+        window.toggleRecording = function() {
+            if (!recordingSupported) {
+                showManualRecordingOption();
+                return;
+            }
+            
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        };
+
+        // Modern Speech Recognition Toggle
+        window.toggleSpeechRecognition = function() {
+            console.log('🎤 Speech recognition toggle - Web Speech API öncelikli');
+            
+            if (speechSupported) {
+                // Web Speech API kullan
+                if (isListening) {
+                    stopListening();
+                } else {
+                    startListening();
+                }
+            } else {
+                // MediaRecorder fallback
+                console.log('⚠️ Web Speech API yok, MediaRecorder fallback');
+                toggleRecording();
+            }
+        };
+        
+        // MediaRecorder Toggle (Fallback)
+        function toggleRecording() {
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        };
+
+        function disableMicrophoneButton() {
+            const micButton = document.getElementById('micButton');
+            if (micButton) {
+                micButton.disabled = true;
+                micButton.style.opacity = '0.5';
+                micButton.innerHTML = '<span>🚫</span>';
+                micButton.title = 'Ses kaydı desteklenmiyor';
+                recordingSupported = false;
+            }
+        }
+
+        window.showManualRecordingOption = function() {
+            const micButton = document.getElementById('micButton');
+            if (micButton) {
+                micButton.innerHTML = '<span>📝</span>';
+                micButton.title = 'Ses kaydı çalışmıyor - Mesajınızı yazın';
+                
+                // Input'a focus yap
+                const input = document.getElementById('messageInput');
+                if (input) {
+                    input.focus();
+                    input.placeholder = 'Ses kaydı çalışmıyor - mesajınızı buraya yazın...';
+                }
+                
+                addMessageToChat('system', '🎤 Ses kaydı şu anda çalışmıyor. Mesajlarınızı yazarak gönderebilirsiniz. 📝');
+            }
+        }
+
+        // TTS (Text-to-Speech) Setup - SESLI CHAT İÇİN
+        function initializeTTS() {
+            console.log('🔊 TTS (Text-to-Speech) başlatılıyor...');
+            
+            if ('speechSynthesis' in window) {
+                ttsSupported = true;
+                console.log('✅ TTS destekleniyor');
+                
+                // Voice loading'i bekle
+                if (speechSynthesis.getVoices().length === 0) {
+                    speechSynthesis.addEventListener('voiceschanged', function() {
+                        console.log('🎤 TTS voices yüklendi');
+                    });
+                }
+                
+            } else {
+                console.log('❌ TTS desteklenmiyor');
+                ttsSupported = false;
+            }
+        }
+
+        function toggleTTS(messageId, button) {
+            console.log('🔊 TTS toggle çağrıldı:', messageId);
+            
+            if (!ttsSupported) {
+                alert('Tarayıcınız ses okuma özelliğini desteklemiyor.');
+                return;
+            }
+            
+            // Eğer başka bir ses çalıyorsa durdur
+            if (isSpeaking && currentUtterance) {
+                stopTTS();
+                return;
+            }
+            
+            // Mesaj metnini al
+            const messageDiv = document.querySelector(`[data-message-id="${messageId}"]`);
+            if (!messageDiv) {
+                console.error('❌ Mesaj bulunamadı:', messageId);
+                return;
+            }
+            
+            // HTML taglarını temizle
+            const messageText = messageDiv.querySelector('div').innerHTML
+                .replace(/<br\s*\/?>/gi, ' ')
+                .replace(/<[^>]*>/g, '')
+                .trim();
+            
+            if (!messageText) {
+                console.log('⚠️ Boş mesaj metni');
+                return;
+            }
+            
+            console.log('🗣️ TTS metni:', messageText.substring(0, 50) + '...');
+            
+            // TTS başlat
+            startTTS(messageText, button);
+        }
+
+        function startTTS(text, button) {
+            try {
+                currentUtterance = new SpeechSynthesisUtterance(text);
+                
+                // Türkçe ses ayarları
+                currentUtterance.lang = 'tr-TR';
+                currentUtterance.rate = 0.9; // Hız
+                currentUtterance.pitch = 1.0; // Ton
+                currentUtterance.volume = 0.8; // Ses seviyesi
+                
+                // Türkçe ses seç (varsa)
+                const voices = speechSynthesis.getVoices();
+                const turkishVoice = voices.find(voice => 
+                    voice.lang.startsWith('tr') || 
+                    voice.name.toLowerCase().includes('turkish') ||
+                    voice.name.toLowerCase().includes('türk')
+                );
+                
+                if (turkishVoice) {
+                    currentUtterance.voice = turkishVoice;
+                    console.log('🇹🇷 Türkçe ses seçildi:', turkishVoice.name);
+                } else {
+                    console.log('⚠️ Türkçe ses bulunamadı, varsayılan ses kullanılıyor');
+                }
+                
+                // Event listeners
+                currentUtterance.onstart = function() {
+                    console.log('🔊 TTS başladı');
+                    isSpeaking = true;
+                    button.classList.add('speaking');
+                    button.innerHTML = '⏸️';
+                    button.title = 'Ses okumayı durdur';
+                };
+                
+                currentUtterance.onend = function() {
+                    console.log('🔊 TTS tamamlandı');
+                    stopTTS();
+                };
+                
+                currentUtterance.onerror = function(event) {
+                    console.error('🚨 TTS hatası:', event.error);
+                    stopTTS();
+                };
+                
+                // TTS başlat
+                speechSynthesis.speak(currentUtterance);
+                
+            } catch (error) {
+                console.error('🚨 TTS başlatma hatası:', error);
+                alert('Ses okuma başlatılamadı.');
+            }
+        }
+
+        function stopTTS() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            
+            isSpeaking = false;
+            currentUtterance = null;
+            
+            // Tüm TTS butonlarını resetle
+            document.querySelectorAll('.tts-button').forEach(btn => {
+                btn.classList.remove('speaking');
+                btn.innerHTML = '🔊';
+                btn.title = 'Sesli oku';
+            });
+            
+            console.log('🔊 TTS durduruldu');
+        }
+
+        window.updateMicrophoneButton = function(state) {
+            const micButton = document.getElementById('micButton');
+            const micIcon = document.getElementById('micIcon');
+            
+            if (!micButton || !micIcon) return;
+            
+            // Önceki class'ları temizle
+            micButton.classList.remove('recording', 'listening', 'idle');
+            
+            switch(state) {
+                case 'recording':
+                    micButton.classList.add('recording');
+                    micIcon.textContent = '🔴';
+                    micButton.title = 'Kaydı durdur';
+                    break;
+                case 'listening':
+                    micButton.classList.add('listening');
+                    micIcon.textContent = '👂';
+                    micButton.title = 'Dinliyorum...';
+                    break;
+                case 'idle':
+                default:
+                    micButton.classList.add('idle');
+                    micIcon.textContent = '🎤';
+                    micButton.title = 'Sesli mesaj gönder';
+                    break;
+            }
+        }
+
+        // Yeni fonksiyonlar localStorage tabanlı sistem için
+        function updateChatModeDisplay() {
+            const chatType = localStorage.getItem('selectedChatType');
+            const chatMode = localStorage.getItem('selectedChatMode');
+            
+            if (chatType && chatMode) {
+                const modeIcon = document.querySelector('.mode-icon');
+                const modeText = document.querySelector('.mode-text');
+                
+                if (chatMode === 'friend') {
+                    modeIcon.textContent = '👥';
+                    modeText.textContent = 'Arkadaş Modu';
+                } else if (chatMode === 'psychological') {
+                    modeIcon.textContent = '🧠';
+                    modeText.textContent = 'Psikolojik Destek';
+                }
+                
+                console.log(`Chat Mode Display Updated (SESLI): ${chatType} - ${chatMode}`);
+            }
+        }
+        
+        function goBackToMenu() {
+            // Chat menüsüne geri dön
+            window.location.href = 'chat_menu.html';
+        }
+        
+        function addWelcomeMessage() {
+            const chatType = localStorage.getItem('selectedChatType');
+            const chatMode = localStorage.getItem('selectedChatMode');
+            
+            let welcomeMessage = '';
+            
+            if (chatMode === 'friend') {
+                welcomeMessage = 'Merhaba! Ben Neva, yapay zeka destekli arkadaşın. Seninle sesli sohbet etmeye hazırım! Bugün nasılsın? 😊🎤';
+            } else if (chatMode === 'psychological') {
+                welcomeMessage = 'Merhaba! Ben Neva, yapay zeka destekli psikolojik destek asistanınız. Size nasıl yardımcı olabilirim? 🧠💙🎤';
+            }
+            
+            if (welcomeMessage) {
+                addMessageToChat('ai', welcomeMessage);
+                console.log(`Welcome message added for voice mode: ${chatMode}`);
+            }
+        }
+
+        // Mesaj ekleme helper fonksiyonu
+        window.addMessageToChat = function(type, text) {
+            console.log('🔄 addMessageToChat çağrıldı:', type, text.substring(0, 50) + '...');
+            const messagesContainer = document.getElementById('chatMessages');
+            if (!messagesContainer) {
+                console.error('❌ chatMessages container bulunamadı!');
+                return null;
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const time = new Date().toLocaleTimeString('tr-TR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            // TTS butonu sadece AI mesajları için
+            let ttsButton = '';
+            if (type === 'ai' && ttsSupported) {
+                const messageId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                ttsButton = `<button class="tts-button" onclick="toggleTTS('${messageId}', this)" title="Sesli oku/durdur">🔊</button>`;
+                messageDiv.setAttribute('data-message-id', messageId);
+            }
+            
+            messageDiv.innerHTML = `
+                ${ttsButton}
+                <div>${text}</div>
+                <div class="message-time">${time}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            console.log('✅ Mesaj DOM\'a eklendi, toplam mesaj sayısı:', messagesContainer.children.length);
+            
+            // Scroll to bottom
+            setTimeout(() => {
+                const currentScrollTop = messagesContainer.scrollTop;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                console.log('📜 Scroll güncellendi:', currentScrollTop, '->', messagesContainer.scrollTop);
+            }, 50);
+            
+            return messageDiv; // Loading mesajı için geri döndür
+        }
+
+        // Sayfa yüklendiğinde token kontrolü
+        function checkAuthOnLoad() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('Bu sayfaya erişim için giriş yapmalısınız.');
+                window.location.href = 'girisyap.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Kullanıcı bilgisini göster
+        function showUserInfo() {
+            const userInfo = localStorage.getItem('userInfo');
+            const userWelcome = document.getElementById('userWelcome');
+            
+            if (userInfo && userWelcome) {
+                try {
+                    const user = JSON.parse(userInfo);
+                    userWelcome.textContent = `Hoş geldin, ${user.username || user.name || 'Kullanıcı'}!`;
+                } catch (e) {
+                    console.log('User info parse error:', e);
+                }
+            }
+        }
+
+        window.sendMessage = async function() {
+            console.log('🚀 sendMessage başladı');
             const input = document.getElementById('messageInput');
             const text = input.value.trim();
-            if (!text) return;
+            if (!text) {
+                console.log('❌ Boş mesaj, çıkılıyor');
+                return;
+            }
 
-            const messagesContainer = document.getElementById('chatMessages');
-            const userMsg = {
-                type: 'user',
-                text: text,
-                time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-            };
+            // Token kontrolü ekle
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                console.log('❌ Token bulunamadı');
+                alert('Lütfen giriş yapın!');
+                window.location.href = 'girisyap.html';
+                return;
+            }
+            
+            console.log('✅ Token mevcut:', token.substring(0, 20) + '...');
 
-            // Basit şekilde ekle (gerçek AI yanıtı buraya entegre edilebilir)
-            const userDiv = document.createElement('div');
-            userDiv.className = `message user`;
-            userDiv.innerHTML = `
-                <div>${userMsg.text}</div>
-                <div class="message-time">${userMsg.time}</div>
-            `;
-            messagesContainer.appendChild(userDiv);
+            // localStorage'dan seçili modu al
+            const selectedMode = localStorage.getItem('selectedChatMode') || 'friend';
+            console.log('📝 Kullanıcı mesajı:', text);
+            console.log('🎯 Seçilen mod (SESLI):', selectedMode);
 
-            // Otomatik scroll
-            setTimeout(() => {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 50);
-
+            // Kullanıcı mesajını hemen göster
+            console.log('📤 Kullanıcı mesajı ekleniyor...');
+            addMessageToChat('user', text);
             input.value = '';
+
+            // Loading mesajı göster
+            console.log('⏳ Loading mesajı ekleniyor...');
+            const loadingDiv = addMessageToChat('ai', 'Düşünüyorum... ⏳');
+
+            try {
+                console.log('🌐 API çağrısı başlıyor...');
+                const response = await fetch('http://127.0.0.1:8000/chat/text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        message: text,
+                        mode: selectedMode
+                    })
+                });
+
+                console.log('📡 API cevabı alındı, status:', response.status);
+
+                // Loading mesajını kaldır
+                if (loadingDiv && loadingDiv.parentNode) {
+                    console.log('🗑️ Loading mesajı kaldırılıyor...');
+                    loadingDiv.remove();
+                } else {
+                    console.warn('⚠️ Loading mesajı bulunamadı!');
+                }
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('📋 API cevabı:', data);
+                
+                // AI cevabını göster
+                if (data.reply_text) {
+                    console.log('💬 AI cevabı ekleniyor:', data.reply_text.substring(0, 50) + '...');
+                    const aiMessageDiv = addMessageToChat('ai', data.reply_text);
+                    console.log('✅ AI cevabı başarıyla eklendi');
+                    
+                    // Scroll kontrolü
+                    setTimeout(() => {
+                        const messagesContainer = document.getElementById('chatMessages');
+                        if (messagesContainer) {
+                            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                            console.log('📜 Scroll yapıldı');
+                        }
+                    }, 100);
+                } else {
+                    console.log('❌ API cevabında reply_text yok');
+                    addMessageToChat('ai', 'Üzgünüm, bir sorun oluştu. Lütfen tekrar deneyin.');
+                }
+                
+            } catch (error) {
+                console.error('❌ API Hatası:', error);
+                
+                // Loading mesajını kaldır
+                if (loadingDiv && loadingDiv.parentNode) {
+                    console.log('🗑️ Hata durumunda loading mesajı kaldırılıyor...');
+                    loadingDiv.remove();
+                }
+                
+                if (error.message.includes('401')) {
+                    console.log('🔒 401 hatası - Token süresi dolmuş');
+                    alert('Oturum süreniz dolmuş. Lütfen tekrar giriş yapın.');
+                    localStorage.removeItem('authToken');
+                    window.location.href = 'girisyap.html';
+                } else {
+                    console.log('🌐 Bağlantı hatası');
+                    addMessageToChat('ai', 'Üzgünüm, bir bağlantı hatası oluştu. Lütfen tekrar deneyin.');
+                }
+            }
+            console.log('🏁 sendMessage tamamlandı');
         }
 
         // Initialize everything safely
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOMContentLoaded - Sayfa yüklendi (SESLI CHAT)');
+            
+            // İlk önce token kontrolü yap
+            if (!checkAuthOnLoad()) {
+                console.log('❌ Token kontrolü başarısız - çıkılıyor');
+                return;
+            }
+            console.log('✅ Token kontrolü başarılı');
+            
+            // Mode display'i güncelle
+            updateChatModeDisplay();
+            
+            // MODERN: Web Speech API'yi başlat (öncelikli)
+            initializeWebSpeechAPI();
+            
+            // FALLBACK: MediaRecorder'ı başlat - SESLI CHAT İÇİN
+            if (!speechSupported) {
+                initializeMediaRecorder();
+            }
+            
+            // TTS'yi başlat - SESLI CHAT İÇİN  
+            initializeTTS();
+            
+            // Kullanıcı bilgisini göster
+            showUserInfo();
+            
             try {
-                loadChat('anxiety');
+                console.log('🔧 Event listener\'lar ekleniyor...');
+                // loadChat('anxiety'); // BU SATIRI KALDIRIN - Gerçek API kullanırken çağrılmamalı
 
                 const messageInput = document.getElementById('messageInput');
+                const chatForm = document.getElementById('chatForm');
+                
+                if (chatForm) {
+                    console.log('📋 Form event listener ekleniyor...');
+                    chatForm.addEventListener('submit', function(e) {
+                        console.log('🚫 Form submit eventi yakalandı - engellenecek!');
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        console.log('⚠️ SAYFA YENİLENMEMELİ - Form submit engellendi!');
+                        sendMessage();
+                        return false;
+                    });
+                }
+                
                 if (messageInput) {
+                    console.log('⌨️ Enter key event listener ekleniyor...');
                     messageInput.addEventListener('keypress', function(e) {
                         if (e.key === 'Enter') {
+                            console.log('🔑 Enter tuşu basıldı - form submit engellenecek!');
+                            e.preventDefault(); // Form submit'i engelle
+                            e.stopPropagation();
+                            console.log('⚠️ SAYFA YENİLENMEMELİ - Enter event engellendi!');
                             sendMessage();
                         }
                     });
@@ -397,10 +1523,26 @@
                     observer.observe(el);
                 });
 
+                console.log('🎯 Initialization tamamlandı');
+
+                // Karşılama mesajını ekle
+                console.log('🎯 Karşılama mesajı ekleniyor (SESLI)...');
+                addWelcomeMessage();
+
             } catch (error) {
-                console.log('Initialization error:', error);
+                console.error('❌ Initialization error:', error);
             }
+            
+            // Sayfa yenilenmesi kontrolü
+            window.addEventListener('beforeunload', function(e) {
+                console.warn('🚨 SAYFA YENİLENİYOR! Bu olmamalı!');
+                console.trace('Sayfa yenilenmesi call stack:');
+                return 'Sayfa yenileniyor - bu beklenmeyen bir durum!';
+            });
+            
+            console.log('🏁 DOMContentLoaded tamamlandı (SESLI)');
         });
+
     </script>
 </body>
 </html>
