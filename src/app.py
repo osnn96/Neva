@@ -335,6 +335,54 @@ def is_stop_command(text):
     """Check if the input contains the specific stop command"""
     return "neva durdur" in text.lower()
 
+def process_chat_turn(user_id: str, mode: str, user_input: str, use_voice: bool = False):
+    """Process a single chat turn and return the response"""
+    # Load user data
+    user_data = load_user_data(user_id)
+    
+    # Initialize model with selected mode
+    model = genai.GenerativeModel(
+        model_name='gemini-1.5-pro-latest',
+        system_instruction=MODES[mode]["system_instruction"],
+        safety_settings={
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        }
+    )
+    
+    # Start chat with context
+    chat = model.start_chat(history=build_context(user_data, mode))
+    
+    # Send message and get response
+    response = chat.send_message(user_input)
+    response_text = response.text
+    
+    # Check for Turkish language and retry if necessary
+    if not any(char in "çğıöşüÇĞİÖŞÜ" for char in response_text):
+        response = chat.send_message("Lütfen bu cevabı TÜRKÇE olarak ver!")
+        response_text = response.text
+    
+    # Update conversation history
+    mode_data = user_data["modes"][mode]
+    mode_data["full_history"].extend([
+        {"role": "user", "parts": [user_input], "spoken": use_voice},
+        {"role": "model", "parts": [response_text], "spoken": use_voice}
+    ])
+    
+    # Generate summary if needed
+    if needs_summarization(user_data, mode):
+        user_data = generate_summary(model, user_data, mode)
+        # Update chat context after summary
+        chat = model.start_chat(history=build_context(user_data, mode))
+    
+    # Save user data
+    save_user_data(user_data)
+    
+    # Return response
+    return response_text
+
 
 # --- Main Application ---
 def main():
@@ -345,8 +393,7 @@ def main():
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_CLOUD_KEY_PATH")
 
     user_id = input("İsminizi girin: ").strip() or "misafir"
-    user_data = load_user_data(user_id)
-
+    
     # Mod seçimi
     print("\nLütfen bir mod seçin:")
     for key, mode in MODES.items():
@@ -358,20 +405,7 @@ def main():
     # Add voice interaction option
     use_voice = input("Sesli etkileşim kullanmak ister misiniz? (e/h): ").lower() == 'e'
 
-    # Modeli seçilen moda göre oluştur
-    model = genai.GenerativeModel(
-        model_name='gemini-1.5-pro-latest',
-        system_instruction=MODES[selected_mode]["system_instruction"],
-        safety_settings={
-            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        }
-    )
-
-    # Sohbeti başlat
-    chat = model.start_chat(history=build_context(user_data, selected_mode))
+    # Welcome message
     welcome_message = f"Merhaba {user_id}! Bugün nasılsınız?"
     print(f"\nNeva ({MODES[selected_mode]['name']}): {welcome_message}")
 
@@ -413,11 +447,6 @@ def main():
 
                 if new_mode != current_mode:
                     current_mode = new_mode
-                    model = genai.GenerativeModel(
-                        model_name='gemini-1.5-pro-latest',
-                        system_instruction=MODES[current_mode]["system_instruction"]
-                    )
-                    chat = model.start_chat(history=build_context(user_data, current_mode))
                     mode_change_msg = f"Mod değiştirildi! Şimdi {MODES[current_mode]['name']} modundayım."
                     print(f"\nNeva: {mode_change_msg}")
 
@@ -425,40 +454,22 @@ def main():
                         text_to_speech(mode_change_msg)
                 continue
 
-            # Mesajı işle
-            response = chat.send_message(user_input)
-            response_text = response.text
-
-            # Dil kontrolü
-            if not any(char in "çğıöşüÇĞİÖŞÜ" for char in response_text):
-                response = chat.send_message("Lütfen bu cevabı TÜRKÇE olarak ver!")
-                response_text = response.text
-
+            # Process chat turn and get response
+            response_text = process_chat_turn(user_id, current_mode, user_input, use_voice)
+            
+            # Output the response
             print(f"Neva: {response_text}")
 
             # Convert response to speech if voice enabled
             if use_voice:
                 text_to_speech(response_text)
 
-            # Geçmişi güncelle
-            mode_data = user_data["modes"][current_mode]
-            mode_data["full_history"].extend([
-                {"role": "user", "parts": [user_input], "spoken": use_voice},
-                {"role": "model", "parts": [response_text], "spoken": use_voice}
-            ])
-
-            # Özet oluştur
-            if needs_summarization(user_data, current_mode):
-                user_data = generate_summary(model, user_data, current_mode)
-                chat = model.start_chat(history=build_context(user_data, current_mode))
-
         except KeyboardInterrupt:
             break
         except Exception as e:
             print(f"Hata: {str(e)}")
 
-    # Çıkışta kaydet
-    save_user_data(user_data)
+    # Çıkışta veda mesajı
     goodbye_message = f"Görüşmek üzere {user_id}! Sizinle sohbet etmek güzeldi."
     print(f"\nNeva: {goodbye_message}")
 

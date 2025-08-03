@@ -145,13 +145,13 @@
 }
 
 .logo-image {
-    width: 50px;
+    width: 40px;
     height: auto;
     margin: 0;
 }
 
 .logo-text {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, #00f5ff, #0080ff);
     -webkit-background-clip: text;
@@ -160,5 +160,196 @@
     font-family: 'Dancing Script', cursive;
     margin: 0; 
     padding: 0; 
+}
+
+/* YENİ CHAT MENU STİLLERİ */
+
+/* Ana İçerik Yeniden Tasarım */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    flex-direction: column;
+    padding: 2rem;
+    margin-top: 80px;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff, #00f5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.5;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 700px;
+    width: 100%;
+}
+
+/* Chat Category Stilleri */
+.chat-category {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.category-title {
+    font-size: 1.3rem;
+    color: #00f5ff;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+/* Option Box Yeniden Tasarım */
+.option-box {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.option-box.friend-mode {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.15), rgba(0, 128, 255, 0.08));
+    border-color: rgba(0, 245, 255, 0.25);
+}
+
+.option-box.friend-mode:hover {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.25), rgba(0, 128, 255, 0.15));
+    border-color: #00f5ff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 245, 255, 0.2);
+}
+
+.option-box.psych-mode {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(204, 68, 68, 0.08));
+    border-color: rgba(255, 107, 107, 0.25);
+}
+
+.option-box.psych-mode:hover {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.25), rgba(204, 68, 68, 0.15));
+    border-color: #ff6b6b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.2);
+}
+
+.option-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.option-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.4rem;
+}
+
+.option-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.3;
+}
+
+/* Chat Badge (Mevcut konuşma işareti) */
+.chat-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 245, 255, 0.9);
+    color: #000;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.option-box.has-chat {
+    border-color: #00f5ff !important;
+}
+
+.option-box.has-chat.psych-mode {
+    border-color: #ff6b6b !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .options-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .page-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .chat-category {
+        padding: 1.2rem;
+    }
+    
+    .option-box {
+        padding: 1.2rem 0.8rem;
+        min-height: 120px;
+    }
+    
+    .option-icon {
+        font-size: 2rem;
+    }
+    
+    .option-title {
+        font-size: 1rem;
+    }
+    
+    .option-desc {
+        font-size: 0.8rem;
+    }
 }
 
