@@ -35,7 +35,10 @@ Bu liste, projenin mevcut ve gelecekteki potansiyel özelliklerini içermektedir
 
 ---
 
-# SPRINT 1 RAPORU
+# Sprint Raporları
+
+<details>
+<summary><h2>📋 SPRINT 1 RAPORU</h2></summary>
 
 **Sprint Adı/Numarası:** Sprint 1: Projeye Başlangıç  
 **Takım Adı:** AI takım 2   
@@ -112,7 +115,12 @@ Bu sprintin ana hedefi, projenin her dalını bir nebze olsa da ilerletmek ve te
 - Backend mimarisinin geliştirilmesi.
 - Arayüz tasarımı ve temel kaynak kodlarının geliştirilmesi.
 
-# SPRINT 2 RAPORU
+</details>
+
+---
+
+<details>
+<summary><h2>📋 SPRINT 2 RAPORU</h2></summary>
 
 **Sprint Adı/Numarası:** Sprint 2: Projeye Gelişimi   
 **Takım Adı:** AI takım 2   
@@ -180,3 +188,94 @@ Bu sprintin ana hedefi, Faz 1'de oluşturulan komut satırı uygulamasını bir 
 - Frontend ile Backend arasında API bağlantısını kurmak.
 - Temel kullanıcı veritabanı yapısını oluşturmak.
 - Projenin deploy edilmesi için gerekli adımları atmak.
+
+</details>
+
+---
+
+<details>
+<summary><h2>📋 SPRINT 3 RAPORU</h2></summary>
+
+**Sprint Adı/Numarası:** Sprint 3: Projeye Gelişimi   
+**Takım Adı:** AI takım 2   
+**Sprint Başlangıç Tarihi:** 20.07.2025  
+**Sprint Bitiş Tarihi:** 03.08.2025
+
+---
+
+### 1. Sprint Hedefi (Sprint Goal)
+Bu sprintin ana hedefi, projenin tüm bileşenlerini (Frontend, Backend-AI, Backend-Kullanıcı) bir araya getirerek tam fonksiyonel bir yerel prototip oluşturmak ve projeyi canlı bir sunucu ortamına taşımaktı.
+
+---
+
+### 2. Tamamlanan İşler (Completed Work)
+
+Bu sprintte projemiz baştan sona entegre edilerek canlıya hazır hale getirilmiştir:
+
+- **Canlı Kullanıcı Yönetim API'si :**
+  - Kullanıcı kaydı, girişi, çıkışı ve şifre sıfırlama gibi tüm kimlik doğrulama işlemleri tamamlandı ve canlı bir PHP API'sine bağlandı.
+  - Kullanıcı veritabanı ve yönetimi altyapısı başarıyla oluşturuldu.
+
+- **Canlı Sunucu Kurulumu ve Host Etme :**
+  - Proje, gerekli tüm konfigürasyonlar yapılarak bir Ubuntu sunucusuna başarıyla kuruldu ve herkesin erişebileceği bir link üzerinden canlıya alındı.
+
+- **Ses Teknolojileri ve Ana Mantık :**
+  - Google Speech Service API kullanılarak TTS (Metinden Sese) ve STT (Sesten Metne) özellikleri ana mantığa entegre edildi.
+  - Sesli konuşmaların da, aynı yazılı sohbet gibi, `.json` formatında hafızada tutulması sağlandı.
+
+- **Yerel Tam Entegrasyon :**
+  - FastAPI kullanılarak oluşturulan yerel backend, `app.py`'deki ana mantığı ve ses servislerini kullanarak frontend ile tam entegre hale getirildi.
+  - Performans ve güvenlik iyileştirmeleri yapılarak, kullanıcı girişi ve sohbet özellikleriyle tam fonksiyonel, canlıya hazır bir yerel sürüm tamamlandı.
+
+- **Nihai Frontend Tasarımı :**
+  - Frontend arayüzü, faviconlar, yönlendirmeler (redirects) ve çok sayıda kullanıcı deneyimi iyileştirmesi ile tamamen bitirilmiş ve cilalanmış bir hale getirildi.
+
+---
+
+### 3. Karşılaşılan Zorluklar
+- **Hibrit Mimarinin Yönetimi:** İki farklı backend teknolojisini (PHP ve Python) bir arada yönetmek ve aralarındaki veri akışını planlamak, başlangıçta ek koordinasyon gerektirdi. Ancak bu zorluk, API'lerin net bir şekilde dokümante edilmesiyle aşıldı.
+
+---
+
+### 4. Sprint Metrikleri ve Puanlama
+
+**Puanlama Mantığı:**
+> Takım olarak işlerin büyüklüğünü tahmin etmek için Fibonacci (1, 2, 3, 5, 8...) ölçeğini kullanıyoruz. Puanlar, bir işin saat olarak ne kadar süreceğini değil; karmaşıklığını, eforunu ve belirsizliğini temsil eden göreceli bir ölçüttür.
+
+**Sprint Puanları:**
+- **Planlanan Toplam Puan:** 21
+- **Tamamlanan Toplam Puan:** 18
+- **Takım Hızı (Velocity):** 13
+
+---
+
+### 5. Sprint İlerleme Grafiği (Burndown Chart)
+
+![Sprint 3 Burndown Chart](https://i.imgur.com/StOP4sv.png)
+
+---
+
+### 6. Sprint Review Sonuçları ve Notlar
+
+**Sunulan İşler:**
+- Canlı sunucu üzerindeki linkten, kullanıcı kaydı ve girişi başarıyla gösterildi.
+- Yerel ortamda, giriş yapmış bir kullanıcının frontend arayüzü üzerinden Neva ile hem yazılı hem de sesli olarak sohbet edebildiği tam entegre bir demo yapıldı.
+
+**Alınan Geri Bildirim (Feedback):**
+- Projenin bu kadar kısa sürede fikir aşamasından tam fonksiyonel bir prototipe dönüşmesi büyük takdir topladı.
+- Özellikle sesli konuşma özelliğinin akıcılığı ve hafıza yeteneği çok beğenildi.
+
+---
+
+### 7. Sprint Geri Bildirimi (Retrospective'den Notlar)
+
+- **İyi Gidenler:** Takım üyeleri arasındaki rol dağılımı ve uzmanlık alanlarına göre sorumluluk alınması projenin hızla ilerlemesini sağladı. Özellikle backend ve frontend ekiplerinin paralel çalışması çok verimliydi.
+- **Geliştirilmesi Gerekenler:** Projenin son aşamasında olduğumuz için, kullanıcıların canlı feedbackleri ile gereken geliştirmelerin tamamlanması.
+
+---
+
+### 8. Sonraki Sprint İçin Öncelikli Konular
+- Tüm uygulama akışı için uçtan uca testlerin yapılması.
+- Olası hataların (bug) tespiti ve giderilmesi.
+
+</details>
