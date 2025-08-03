@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="image/favicon.png" type="image/png">
+    
+    <title>Neva - Hakkında</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="image/nevalogo.png" alt="Neva Logo" class="logo-image">
+                <span class="logo-text">NEVA</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="chat_menu.html">Sohbet</a></li>
+                <li><a href="features.html">Özellikler</a></li>
+                <li><a href="about.html" class="active">Hakkında</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <a href="girisyap.html" class="nav-login" target="nav-login">Giriş Yap</a>
+                <a href="kayitol.html" class="nav-cta" target="nav-cta">Kayıt Ol</a> 
+            </div>
+            
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu-->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="about-page">
+        <!-- Hero Section -->
+        <section class="hero fade-in">
+            <div class="hero-content">
+                <h1 class="hero-title">🤖 Neva Hakkında</h1>
+                <p class="hero-subtitle">Yapay zeka destekli psikolojik destek platformu - Zihinsel sağlığınızın dijital dostu</p>
+            </div>
+        </section>
+
+        <!-- About Content -->
+        <section class="about-content-section fade-in">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <div class="about-card">
+                            <div class="card-icon">🎯</div>
+                            <h3 class="card-title">Misyonumuz</h3>
+                            <p class="card-description">
+                                Neva, modern yaşamın getirdiği stres, kaygı ve yalnızlık gibi zorluklarla mücadele eden bireylere destek olmak amacıyla geliştirilmiş, yapay zeka tabanlı bir psikolojik destek ve sohbet asistanıdır.
+                            </p>
+                        </div>
+                        
+                        <div class="about-card">
+                            <div class="card-icon">🌟</div>
+                            <h3 class="card-title">Vizyonumuz</h3>
+                            <p class="card-description">
+                                Herkesin ihtiyaç duyduğu anda konuşabileceği bir "dijital sırdaş" yaratarak zihinsel farkındalığı artırmak ve yalnızlık hissini azaltmaktır.
+                            </p>
+                        </div>
+                        
+                        <div class="about-card">
+                            <div class="card-icon">⚡</div>
+                            <h3 class="card-title">Teknolojimiz</h3>
+                            <p class="card-description">
+                                Gelişmiş doğal dil işleme, duygu analizi ve makine öğrenmesi teknolojileri kullanarak, kullanıcılarına empati odaklı, anlayışlı ve güvenli bir sohbet deneyimi sunuyoruz.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <div class="neva-showcase">
+                            <div class="showcase-icon">🤖</div>
+                            <h3 class="showcase-title">Neva AI</h3>
+                            <p class="showcase-subtitle">Yapay zeka destekli psikolojik destek asistanı</p>
+                            
+                            <div class="stats-mini">
+                                <div class="stat-mini">
+                                    <span class="stat-number">7/24</span>
+                                    <span class="stat-label">Erişim</span>
+                                </div>
+                                <div class="stat-mini">
+                                    <span class="stat-number">Sesli & Yazılı</span>
+                                    <span class="stat-label">Sohbet</span>
+                                </div>
+                                <div class="stat-mini">
+                                    <span class="stat-number">100%</span>
+                                    <span class="stat-label">Gizli</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values-section fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Değerlerimiz</h2>
+                    <p class="section-subtitle">Neva'yı geliştirirken benimsediğimiz temel değerler</p>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🛡️</div>
+                        <h3>Gizlilik</h3>
+                        <p>Kullanıcı verilerinin tam güvenliği ve mahremiyeti bizim için önceliklidir.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">❤️</div>
+                        <h3>Empati</h3>
+                        <p>Her kullanıcımıza anlayışlı ve destekleyici bir yaklaşımla hizmet veriyoruz.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <h3>İnovasyon</h3>
+                        <p>Sürekli gelişen teknoloji ile en iyi deneyimi sunmaya odaklanıyoruz.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🌍</div>
+                        <h3>Erişilebilirlik</h3>
+                        <p>Herkesin zihinsel sağlık desteğine erişimini kolaylaştırıyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Ekibimiz</h2>
+                    <p class="section-subtitle">Neva'yı hayata geçiren tutkulu ekip</p>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">👨‍💻</div>
+                        <h3>Geliştirici Ekibi</h3>
+                        <p>Yazılım geliştirme ve AI uzmanları</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-avatar">👩‍⚕️</div>
+                        <h3>Psikoloji Danışmanları</h3>
+                        <p>Zihinsel sağlık profesyonelleri</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-avatar">🎨</div>
+                        <h3>Tasarım Ekibi</h3>
+                        <p>Kullanıcı deneyimi tasarımcıları</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section fade-in">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Neva ile Tanışmaya Hazır mısınız?</h2>
+                    <p class="cta-subtitle">Zihinsel sağlığınız için bugün bir adım atın</p>
+                    <div class="cta-buttons">
+                        <a href="chat_menu.html" class="btn btn-primary">Sohbete Başla</a>
+                        <a href="features.html" class="btn btn-secondary">Özellikleri Keşfet</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer fade-in">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="image/nevalogo.png" alt="Neva Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">NEVA</span>
+                    </div>
+                    <p class="footer-description">
+                        Yapay zeka destekli psikolojik destek platformu
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="chat_menu.html">Sohbet</a></li>
+                        <li><a href="features.html">Özellikler</a></li>
+                        <li><a href="about.html">Hakkında</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">İletişim</a></li>
+                        <li><a href="gizlilik.html">Gizlilik Politikası</a></li>
+                        <li><a href="#faq">Sık Sorulan Sorular</a></li>
+                        <li><a href="#help">Yardım</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 NEVA. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('active');
+            }
+            if (overlay) {
+                overlay.classList.toggle('active');
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            if (mobileMenu) {
+                mobileMenu.classList.remove('active');
+            }
+            if (overlay) {
+                overlay.classList.remove('active');
+            }
+        }
+
+        // Fade in animation on scroll
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.fade-in');
+            const triggerBottom = window.innerHeight / 5 * 4;
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < triggerBottom) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('resize', checkVisibility);
+        document.addEventListener('DOMContentLoaded', checkVisibility);
+    </script>
+</body>
+</html>
